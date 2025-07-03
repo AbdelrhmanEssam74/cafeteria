@@ -47,7 +47,7 @@
                         <td>{{ $product->price }} EGP</td>
                         <td>
                             @if($product->image)
-                                <img src="{{ asset($product->image) }}"" alt="Product Image" width="70">
+                                <img src="{{ asset($product->image) }}" alt="Product Image" width="70">
                             @else
                                 No Image
                             @endif

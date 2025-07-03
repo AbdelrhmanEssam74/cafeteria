@@ -39,6 +39,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('categories.index')}}">Manage Categories</a>
+                            </li> 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('orders.index')}}">Manage Orders</a>
                             </li>       
                         @else
                             <li class="nav-item">
