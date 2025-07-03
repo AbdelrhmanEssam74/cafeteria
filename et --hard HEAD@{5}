@@ -1,0 +1,8 @@
+[33m264066a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmanage_Products[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{0}: checkout: moving from master to manage_Products
+[33m264066a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmanage_Products[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{1}: checkout: moving from manage_users to master
+[33m2ab494f[m[33m ([m[1;31morigin/manage_users[m[33m, [m[1;32mmanage_users[m[33m)[m HEAD@{2}: checkout: moving from master to manage_users
+[33m264066a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmanage_Products[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{3}: pull origin master: Fast-forward
+[33m2bbd854[m HEAD@{4}: checkout: moving from manage_users to master
+[33m2ab494f[m[33m ([m[1;31morigin/manage_users[m[33m, [m[1;32mmanage_users[m[33m)[m HEAD@{5}: commit: Add feature manage users
+[33m2bbd854[m HEAD@{6}: checkout: moving from master to manage_users
+[33m2bbd854[m HEAD@{7}: clone: from https://github.com/AbdelrhmanEssam74/cafeteria
