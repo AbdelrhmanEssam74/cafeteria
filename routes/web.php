@@ -25,4 +25,3 @@ Route::post('/{id}/status', [AdminOrderController::class, 'update'])->name('orde
 Route::get('dashboard' , [DashboardController::class, 'index'])->name('admin.dashboard');
 
 
-
