@@ -30,16 +30,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('users.index')}}">Manage Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('products.index')}}">Manage Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" >{{ __('Contact') }}</a>
-                        </li>   
-                        
+                         @if (auth()->check() && auth()->user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('users.index')}}">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('products.index')}}">Manage Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('categories.index')}}">Manage Categories</a>
+                            </li>       
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="#home">Home</a>
+                            </li>
+                        @endif
 
                     </ul>
 
