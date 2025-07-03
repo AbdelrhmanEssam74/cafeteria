@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+<<<<<<< HEAD
 import vue from '@vitejs/plugin-vue';
+=======
+>>>>>>> manage_orders
 
 export default defineConfig({
     plugins: [
@@ -11,6 +14,7 @@ export default defineConfig({
             ],
             refresh: true,
         }),
+<<<<<<< HEAD
         vue({
             template: {
                 transformAssetUrls: {
@@ -19,6 +23,8 @@ export default defineConfig({
                 },
             },
         }),
+=======
+>>>>>>> manage_orders
     ],
     resolve: {
         alias: {
