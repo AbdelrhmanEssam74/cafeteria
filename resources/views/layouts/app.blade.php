@@ -32,6 +32,9 @@
                     <ul class="navbar-nav me-auto">
                          @if (auth()->check() && auth()->user()->role === 'admin')
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.dashboard')}}">Dashboard</a>
+                            </li> 
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('users.index')}}">Manage Users</a>
                             </li>
                             <li class="nav-item">
@@ -42,7 +45,7 @@
                             </li> 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('orders.index')}}">Manage Orders</a>
-                            </li>       
+                            </li>      
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="#home">Home</a>
