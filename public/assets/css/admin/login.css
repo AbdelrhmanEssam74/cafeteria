@@ -1,0 +1,120 @@
+
+:root {
+    --primary-dark: #5D4037;
+    --primary: #795548;
+    --primary-light: #D7CCC8;
+    --primary-extra-light: #EFEBE9;
+    --accent: #8D6E63;
+    --text-dark: #3E2723;
+    --text-light: #BCAAA4;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--primary-extra-light);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.login-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+.login-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: var(--primary-dark);
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    border-bottom: none;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.logo i {
+    font-size: 1.75rem;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.card-title {
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    padding-left: 2.5rem;
+    background-color: var(--primary-extra-light);
+    border: 1px solid var(--primary-light);
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(121, 85, 72, 0.25);
+    background-color: var(--white);
+}
+
+.input-group-text {
+    position: absolute;
+    z-index: 5;
+    background: transparent;
+    border: none;
+    left: -0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.forgot-password {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+    color: var(--primary-dark);
+}
+
+.footer {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+/* Custom alert styling to match theme */
+.alert-danger {
+    background-color: rgba(244, 67, 54, 0.1);
+    border-color: rgba(244, 67, 54, 0.2);
+    color: #B71C1C;
+}
