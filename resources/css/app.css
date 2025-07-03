@@ -9,3 +9,26 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+
+.order-status-badge {
+    font-size: 0.85rem;
+    padding: 0.35em 0.65em;
+}
+
+.order-item:hover {
+    background-color: rgba(59, 93, 80, 0.05);
+}
+
+.order-table th {
+    white-space: nowrap;
+}
+
+.order-card {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
