@@ -9,8 +9,9 @@
         @if(session('success'))
             <div class="alert alert-success text-center">{{ session('success') }}</div>
         @endif
-
-        <a href="{{ route('orders.create') }}" class="btn btn-success mb-4">Create Order </a>
+        <div class="text-end">
+            <a href="{{ route('orders.create') }}" class="btn btn-success mb-4">Create Order </a>
+        </div>
 
 
         <form method="GET" action="{{ route('orders.index') }}" class="row g-3 mb-4">
