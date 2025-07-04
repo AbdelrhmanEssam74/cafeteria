@@ -118,84 +118,84 @@
             </a>
         </div>
 
-        <!-- Recent Orders Section -->
-        <div class="recent-orders">
-            <div class="section-header">
-                <h2><i class="fas fa-history"></i> Recent Orders</h2>
-                <a href="{{ route('orders.index') }}" class="view-all">
-                    View All <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            <div class="orders-table-container">
-                <table class="orders-table">
-                    <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Items</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Time</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- Sample data - replace with actual orders data -->
-                    <tr>
-                        <td>#ORD-0012</td>
-                        <td>
-                            <div class="customer-info">
-                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
-                                <span>Sarah Johnson</span>
-                            </div>
-                        </td>
-                        <td>2x Latte (M)</td>
-                        <td>EGP 45.00</td>
-                        <td><span class="status-badge delivered">Delivered</span></td>
-                        <td>10:25 AM</td>
-                        <td class="actions">
-                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#ORD-0011</td>
-                        <td>
-                            <div class="customer-info">
-                                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Michael Chen">
-                                <span>Michael Chen</span>
-                            </div>
-                        </td>
-                        <td>1x Espresso, 1x Croissant</td>
-                        <td>EGP 30.50</td>
-                        <td><span class="status-badge processing">Processing</span></td>
-                        <td>10:15 AM</td>
-                        <td class="actions">
-                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#ORD-0010</td>
-                        <td>
-                            <div class="customer-info">
-                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Emma Wilson">
-                                <span>Emma Wilson</span>
-                            </div>
-                        </td>
-                        <td>1x Cappuccino (L)</td>
-                        <td>EGP 35.00</td>
-                        <td><span class="status-badge pending">Pending</span></td>
-                        <td>10:05 AM</td>
-                        <td class="actions">
-                            <button class="action-btn view"><i class="fas fa-eye"></i></button>
-                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+{{--        <!-- Recent Orders Section -->--}}
+{{--        <div class="recent-orders">--}}
+{{--            <div class="section-header">--}}
+{{--                <h2><i class="fas fa-history"></i> Recent Orders</h2>--}}
+{{--                <a href="{{ route('orders.index') }}" class="view-all">--}}
+{{--                    View All <i class="fas fa-arrow-right"></i>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <div class="orders-table-container">--}}
+{{--                <table class="orders-table">--}}
+{{--                    <thead>--}}
+{{--                    <tr>--}}
+{{--                        <th>Order ID</th>--}}
+{{--                        <th>Customer</th>--}}
+{{--                        <th>Items</th>--}}
+{{--                        <th>Total</th>--}}
+{{--                        <th>Status</th>--}}
+{{--                        <th>Time</th>--}}
+{{--                        <th>Actions</th>--}}
+{{--                    </tr>--}}
+{{--                    </thead>--}}
+{{--                    <tbody>--}}
+{{--                    <!-- Sample data - replace with actual orders data -->--}}
+{{--                    <tr>--}}
+{{--                        <td>#ORD-0012</td>--}}
+{{--                        <td>--}}
+{{--                            <div class="customer-info">--}}
+{{--                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">--}}
+{{--                                <span>Sarah Johnson</span>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
+{{--                        <td>2x Latte (M)</td>--}}
+{{--                        <td>EGP 45.00</td>--}}
+{{--                        <td><span class="status-badge delivered">Delivered</span></td>--}}
+{{--                        <td>10:25 AM</td>--}}
+{{--                        <td class="actions">--}}
+{{--                            <button class="action-btn view"><i class="fas fa-eye"></i></button>--}}
+{{--                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                    <tr>--}}
+{{--                        <td>#ORD-0011</td>--}}
+{{--                        <td>--}}
+{{--                            <div class="customer-info">--}}
+{{--                                <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Michael Chen">--}}
+{{--                                <span>Michael Chen</span>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
+{{--                        <td>1x Espresso, 1x Croissant</td>--}}
+{{--                        <td>EGP 30.50</td>--}}
+{{--                        <td><span class="status-badge processing">Processing</span></td>--}}
+{{--                        <td>10:15 AM</td>--}}
+{{--                        <td class="actions">--}}
+{{--                            <button class="action-btn view"><i class="fas fa-eye"></i></button>--}}
+{{--                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                    <tr>--}}
+{{--                        <td>#ORD-0010</td>--}}
+{{--                        <td>--}}
+{{--                            <div class="customer-info">--}}
+{{--                                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Emma Wilson">--}}
+{{--                                <span>Emma Wilson</span>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
+{{--                        <td>1x Cappuccino (L)</td>--}}
+{{--                        <td>EGP 35.00</td>--}}
+{{--                        <td><span class="status-badge pending">Pending</span></td>--}}
+{{--                        <td>10:05 AM</td>--}}
+{{--                        <td class="actions">--}}
+{{--                            <button class="action-btn view"><i class="fas fa-eye"></i></button>--}}
+{{--                            <button class="action-btn edit"><i class="fas fa-edit"></i></button>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                    </tbody>--}}
+{{--                </table>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 
 

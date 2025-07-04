@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/add-category.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/add-category.css') }}">
 @endsection
 @section('title', 'Add New Category')
 
