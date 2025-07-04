@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                         @if (auth()->check() && auth()->user()->role === 'admin')
+                        @if (auth()->check() && auth()->user()->role === 'admin')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.dashboard')}}">Dashboard</a>
                             </li> 
@@ -51,7 +51,6 @@
                                 <a class="nav-link" href="#home">Home</a>
                             </li>
                         @endif
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
