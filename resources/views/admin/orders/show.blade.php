@@ -1,84 +1,164 @@
 @extends('layouts.app')
-
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/order-details.css') }}">
+@endsection
 @section('title', 'Order Details')
 
 @section('content')
-<div class="container py-4">
-    <h2 class="mb-4 text-center">Order #{{ $order->id }} Details</h2>
-    @if(session('success'))
-        <div class="alert alert-success text-center">{{ session('success') }}</div>
-    @endif
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Order #{{ $order->id }} Details</h2>
+            <a href="{{ route('orders.index') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Orders
+            </a>
+        </div>
 
-    <div class="mb-4">
-        <p><strong>User:</strong> {{ $order->user->name }}</p>
-         <li class="list-group-item">
-        <strong>Room Number:</strong> {{ $order->user->room_number ?? '-' }}
-    </li>
-    
-        <p><strong>Status:</strong> <span class="badge 
-            @if($order->status == 'pending') bg-warning 
-            @elseif($order->status == 'processing') bg-primary 
-            @elseif($order->status == 'canceled') bg-danger 
-            @else bg-success 
-            @endif">{{ ucfirst($order->status) }}</span>
-        </p>
-        <p><strong>Ordered at:</strong> {{ $order->created_at->format('Y-m-d H:i') }}</p>
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show mb-4">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <!-- Order Summary Card -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="avatar me-3">
+                                <img
+                                    src="{{ $order->user->avatar ?? 'https://ui-avatars.com/api/?name='.urlencode($order->user->name).'&background=795548&color=fff' }}"
+                                    alt="{{ $order->user->name }}" class="rounded-circle" width="50">
+                            </div>
+                            <div>
+                                <h5 class="mb-0">{{ $order->user->name }}</h5>
+                                <p class="text-muted mb-0">Customer</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="text-muted">Room Number:</span>
+                            <p class="mb-0">{{ $order->user->room_number ?? 'Not specified' }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <span class="text-muted">Order Status:</span>
+                            <p class="mb-0">
+                            <span class="badge rounded-pill {{ $order->status == 'pending' ? 'bg-warning text-dark' :
+                                 ($order->status == 'processing' ? 'bg-primary' :
+                                 ($order->status == 'delivered' ? 'bg-success' : 'bg-danger')) }}">
+                                {{ ucfirst($order->status) }}
+                            </span>
+                            </p>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="text-muted">Order Date:</span>
+                            <p class="mb-0">{{ $order->created_at->format('M d, Y h:i A') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Items Card -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Order Items</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Product</th>
+                            <th>Image</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th class="pe-4 text-end">Subtotal</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($order->items as $item)
+                            <tr>
+                                <td class="ps-4 align-middle">
+                                    <strong>{{ $item->product->name ?? 'Product Deleted' }}</strong>
+                                </td>
+                                <td class="align-middle">
+                                    @if($item->product && $item->product->image)
+                                        <img src="{{ asset($item->product->image) }}"
+                                             width="60" height="60"
+                                             class="rounded object-fit-cover"
+                                             alt="Product Image">
+                                    @else
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                             style="width: 60px; height: 60px;">
+                                            <i class="fas fa-image text-muted"></i>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    {{ $item->product->category->name ?? '-' }}
+                                </td>
+                                <td class="align-middle">
+                                    {{ number_format($item->price, 2) }} EGP
+                                </td>
+                                <td class="align-middle">
+                                    {{ $item->quantity }}
+                                </td>
+                                <td class="pe-4 text-end align-middle">
+                                    <strong>{{ number_format($item->price * $item->quantity, 2) }} EGP</strong>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot class="bg-light">
+                        <tr>
+                            <td colspan="5" class="text-end fw-bold ps-4">Total:</td>
+                            <td class="pe-4 text-end fw-bold">
+                                {{ number_format($order->items->sum(function($item) { return $item->price * $item->quantity; }), 2) }}
+                                EGP
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Update Card -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="mb-3">Update Order Status</h5>
+                <form action="{{ route('orders.status', $order->id) }}" method="POST">
+                    @csrf
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4">
+                            <select name="status" id="status" class="form-select">
+                                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending
+                                </option>
+                                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>
+                                    Processing
+                                </option>
+                                <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>
+                                    Delivered
+                                </option>
+                                <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>Canceled
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-save me-2"></i>Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <h4 class="mb-3">Order Items</h4>
-
-<table class="table table-bordered text-center align-middle">
-    <thead class="table-light">
-        <tr>
-            <th>Product</th>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($order->items as $item)
-            <tr>
-                <td>{{ $item->product->name ?? 'Product Deleted' }}</td>
-                <td>
-                    @if($item->product && $item->product->image)
-                        <img src="{{ asset($item->product->image) }}" width="70" alt="Product Image">
-                    @else
-                        <span class="text-muted">No Image</span>
-                    @endif
-                </td>
-                <td>{{ $item->product->category->name ?? '-' }}</td>
-                <td>{{ number_format($item->price, 2) }} EGP</td>
-                <td>{{ $item->quantity }}</td>
-                <td>{{ number_format($item->price * $item->quantity, 2) }} EGP</td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-
-
-    <form action="{{ route('orders.status', $order->id) }}" method="POST" class="mb-4">
-    @csrf
-    <div class="row g-3 align-items-center">
-        <div class="col-auto">
-            <label for="status" class="col-form-label fw-bold">Update Status:</label>
-        </div>
-        <div class="col-auto">
-            <select name="status" id="status" class="form-select">
-                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
-                <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>Canceled</option>                
-            </select>
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Update</button>
-        </div>
-    </div>
-</form>
-
-    <a href="{{ route('orders.index') }}" class="btn btn-secondary mt-3">Back to Orders</a>
-</div>
 @endsection
