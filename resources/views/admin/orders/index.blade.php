@@ -1,7 +1,5 @@
 @extends('layouts.app')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/admin/users.css') }}">
-@endsection
+
 @section('title', 'All Orders')
 
 @section('content')
@@ -56,7 +54,7 @@
         </div>
 
         <!-- Orders Cards -->
-        <div class="row g-4 mt-5">
+        <div class="row g-4">
             @forelse ($orders as $order)
                 <div class="col-md-6 col-lg-4">
                     <div class="card shadow-sm h-100">
@@ -180,3 +178,7 @@
         @endif
     </div>
 @endsection
+
+<style>
+
+</style>

@@ -1,80 +1,86 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/products.css') }}">
+@endsection
+
 @section('title', 'Product Management')
 
 @section('content')
-    <div class="container py-4">
-        <h2 class="mb-4 text-center">All Products</h2>
+    <div class="container">
+        <h1 class="page-title">Product Management</h1>
 
         @if(session('success'))
-            <div class="alert alert-success text-center">{{ session('success') }}</div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
-        <div class="text-end mb-3">
-            <a href="{{ route('products.create') }}" class="btn btn-primary text-end" style="display: inline">Add New Product</a>
-        </div>
-
-        <form method="GET" action="{{ route('products.index') }}" class="row mb-3" >
-            <div class="col-md-4">
-                <select name="category" class="form-select" onchange="this.form.submit()" >
-                    <option value="">-- All Categories --</option>
+        <div class="action-bar">
+            <form method="GET" action="{{ route('products.index') }}">
+                <select name="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
                             {{ $cat->name }}
                         </option>
                     @endforeach
                 </select>
-            </div>
-        </form> 
+            </form>
+            <a href="{{ route('products.create') }}" class="btn btn-primary">
+                Add Product
+            </a>
+        </div>
 
+        @if($products->count() > 0)
+            <div class="products-grid">
+                @foreach($products as $product)
+                    <div class="product-card">
+                        @if($product->image)
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-image">
+                        @else
+                            <div class="product-image" style="display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-box-open fa-3x" style="color: var(--primary-light);"></i>
+                            </div>
+                        @endif
 
-        <table class="table table-bordered text-center align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($products as $product)
-                    <tr>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->category->name ?? '-' }}</td>
-                        <td>{{ $product->price }} EGP</td>
-                        <td>
-                            @if($product->image)
-                                <img src="{{ asset($product->image) }}" alt="Product Image" width="70">
-                            @else
-                                No Image
-                            @endif
-                        </td>
-                        <td>
-                            @if($product->availability === 1)
-                                <span class="badge bg-success">Available</span>
-                            @else
-                                <span class="badge bg-danger">Unavailable</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <h3 class="product-name">{{ $product->name }}</h3>
+                        <div class="product-category">{{ $product->category->name ?? 'Uncategorized' }}</div>
+                        <div class="product-price">{{ number_format($product->price, 2) }} EGP</div>
 
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this product?')">
+                        <span class="product-status {{ $product->availability === 1 ? 'status-available' : 'status-unavailable' }}">
+                        {{ $product->availability === 1 ? 'Available' : 'Out of Stock' }}
+                    </span>
+
+                        <div class="product-actions">
+                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-outline btn-edit">
+                                Edit
+                            </a>
+                            <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-sm btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-outline btn-delete"
+                                        onclick="return confirm('Are you sure?')">
+                                    Delete
+                                </button>
                             </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6">No products available.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="empty-state">
+                <p>No products found. Add your first product to get started.</p>
+                <a href="{{ route('products.create') }}" class="btn btn-primary">
+                    Add Product
+                </a>
+            </div>
+        @endif
+
+        @if($products->hasPages())
+            <div class="pagination">
+                {{ $products->links() }}
+            </div>
+        @endif
     </div>
 @endsection
