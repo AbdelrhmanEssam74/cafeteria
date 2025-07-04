@@ -1,0 +1,51 @@
+
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.03);
+}
+
+.input-group .btn {
+    width: 40px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.btn-outline-secondary {
+    border-color: #5D4037;
+    color: #5D4037;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #5D4037;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #5D4037;
+    border-color: #5D4037;
+}
+
+.btn-primary:hover {
+    background-color: #3E2723;
+    border-color: #3E2723;
+}

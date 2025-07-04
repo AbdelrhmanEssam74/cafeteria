@@ -1,0 +1,57 @@
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #5D4037;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+.avatar img {
+    object-fit: cover;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.btn-outline-secondary {
+    border-color: #5D4037;
+    color: #5D4037;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #5D4037;
+    color: white;
+}
+
+.bg-warning {
+    background-color: #FFC107 !important;
+}
+
+.bg-primary {
+    background-color: #5D4037 !important;
+}
