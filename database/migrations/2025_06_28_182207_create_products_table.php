@@ -19,6 +19,14 @@ return new class extends Migration
             $table->boolean('availability')->default(true);
             $table->timestamps();
         });
+
+        // Add the foreign key in a separate migration
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreignId('category_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('set null');
+        });
     }
 
     /**
