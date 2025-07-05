@@ -10,10 +10,32 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('orderItems.product')
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = Order::with('orderItems.product')
+            ->where('user_id', Auth::id());
+
+        // Add date filter if provided
+        if (request()->has('filter_date') && request('filter_date') != '') {
+            $filterDate = request('filter_date');
+            $query->whereDate('created_at', $filterDate);
+        }
+
+        // Handle sorting
+        if (request()->has('sort')) {
+            switch (request('sort')) {
+                case 'date_asc':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'date_desc':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $orders = $query->get();
 
         return view('user.orders.index', compact('orders'));
     }
@@ -55,16 +77,22 @@ class OrderController extends Controller
 
         $order->delete();
 
-        return redirect()->route('orders.index')
+        return redirect()->route('user.orders.index')
             ->with('success', 'Order deleted successfully');
     }
 
     public function deleteAll()
     {
         // Delete all orders for the current user
-        Order::where('user_id', Auth::id())->delete();
+        $orderCount = Order::where('user_id', Auth::id())->count();
 
-        return redirect()->route('orders.index')
-            ->with('success', 'All orders deleted successfully');
+        if ($orderCount > 0) {
+            Order::where('user_id', Auth::id())->delete();
+            return redirect()->route('user.orders.index')
+                ->with('success', 'All ' . $orderCount . ' orders deleted successfully');
+        }
+
+        return redirect()->route('user.orders.index')
+            ->with('info', 'No orders found to delete');
     }
 }

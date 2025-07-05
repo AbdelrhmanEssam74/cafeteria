@@ -11,7 +11,7 @@
 @section('content')
 
     <!-- Start Hero Section -->
-    <div class="hero vh-100"
+    <div class="hero vh-70"
          style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center; color: white; padding: 120px 0;">
         <div class="container">
             <div class="row justify-content-between align-items-center">

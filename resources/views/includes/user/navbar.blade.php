@@ -1,6 +1,6 @@
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar-expand-md navbar-dark fixed-top"
-         style="background-color: #3a2e1f; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" aria-label="Brew Haven navigation bar">
+        style="background-color: #3a2e1f; box-shadow: 0 2px 10px rgba(0,0,0,0.1);" aria-label="Brew Haven navigation bar">
 
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -9,7 +9,7 @@
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsBrewHaven"
-                    aria-controls="navbarsBrewHaven" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarsBrewHaven" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -44,20 +44,21 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="{{ url('/about') }}">
+                            <a class="nav-link {{ request()->is('about') ? 'active' : '' }}"
+                                href="{{ url('/about') }}">
                                 <span class="nav-link-content">About</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('contact') ? 'active' : '' }}"
-                               href="{{ url('/contact') }}">
+                                href="{{ url('/contact') }}">
                                 <span class="nav-link-content">Contact</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             @auth
                                 <a class="nav-link {{ request()->is('orders*') ? 'active' : '' }}"
-                                   href="{{ route('user.orders.index') }}">
+                                    href="{{ route('user.orders.index') }}">
                                     <span class="nav-link-content"> My Orders</span>
 
                                 </a>
@@ -84,7 +85,7 @@
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->name }}
                             </a>
 
@@ -92,7 +93,7 @@
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                                    onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt me-2"></i> {{ __('Logout') }}
                                 </a>
@@ -110,8 +111,8 @@
                             <span
                                 class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                                 style="{{ count((array) session('cart')) > 0 ? '' : 'display: none;' }}">
-                            {{ array_sum(array_column(session('cart') ?? [], 'quantity')) }}
-                        </span>
+                                {{ array_sum(array_column(session('cart') ?? [], 'quantity')) }}
+                            </span>
                         </a>
                     </li>
                 </ul>
