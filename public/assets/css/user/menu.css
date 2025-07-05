@@ -1,0 +1,245 @@
+    /* Main Layout Styles */
+.product-section {
+    background-color: #fff;
+}
+
+/* Card Styles */
+.card {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.image-container {
+    height: 250px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Filter Styles */
+.dropdown-menu {
+    border: 1px solid #d4a762;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item.active {
+    background-color: #d4a762;
+    color: white;
+}
+
+.dropdown-item:hover:not(.active) {
+    background-color: #f8f5f0;
+}
+
+.input-group-text {
+    color: #6d5c4b;
+    background-color: #f8f5f0;
+    border-color: #d4a762;
+}
+
+/* Title Styles */
+.section-title {
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+    color: #3a2e1f;
+}
+
+.section-title i {
+    color: #d4a762;
+}
+
+.section-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background-color: #d4a762;
+    margin: 10px auto 0;
+}
+
+.category-title {
+    color: #d4a762;
+    transition: all 0.3s ease;
+}
+
+.category-description {
+    font-style: italic;
+}
+
+.lead {
+    color: #6d5c4b;
+}
+
+/* Pagination Styles */
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-item .page-link {
+    color: #3a2e1f;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    background-color: #d4a762;
+    border-color: #d4a762;
+    color: white;
+}
+
+/* Form Controls */
+.form-control:focus,
+.form-select:focus {
+    border-color: #d4a762;
+    box-shadow: 0 0 0 0.25rem rgba(212, 167, 98, 0.25);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .d-flex.gap-2 {
+        gap: 0.5rem !important;
+    }
+
+    .input-group>.form-control,
+    .input-group>.btn {
+        padding: 0.375rem 0.75rem;
+    }
+}
+
+/* Product Name Styling */
+.product-name {
+    color: #d4a762;
+    /* Dark brown */
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+    /* Elegant serif font */
+    letter-spacing: 0.5px;
+}
+
+/* Price Styling */
+.product-price {
+    color: #d4a762;
+    /* Gold accent */
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Category Badge Styling */
+.product-category {
+    display: inline-block;
+    background-color: #f8f5f0;
+    /* Light beige */
+    color: #6d5c4b;
+    /* Medium brown */
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    border: 1px solid #e0d6c8;
+}
+
+.product-category i {
+    color: #d4a762;
+    font-size: 0.8em;
+}
+
+/* Make cards clickable */
+.product-card {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal styling */
+.modal-content {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#modalProductImage {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#modalProductName {
+    color: #3a2e1f;
+    font-weight: 700;
+}
+
+#modalProductPrice {
+    color: #d4a762;
+}
+
+#modalProductCategory {
+    background-color: #f8f5f0;
+    color: #6d5c4b;
+    font-weight: 500;
+    padding: 0.5em 1em;
+}
+
+#modalProductDescription {
+    color: #6d5c4b;
+    line-height: 1.6;
+}
+
+/* Toast Notifications */
+.toast {
+    min-width: 250px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.375rem;
+    max-width: 350px;
+}
+
+/* Modal Backdrop Fix */
+.modal-backdrop {
+    background-color: rgba(58, 46, 31, 0.8);
+}
+
+#toastContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1100;
+    max-width: 100%;
+}
+    .pagination nav div{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+/* Make sure toasts don't overlap on mobile */
+@media (max-width: 576px) {
+    #toastContainer {
+        left: 20px;
+        right: 20px;
+        bottom: 70px;
+        /* Above mobile navigation if you have it */
+    }
+
+    .toast {
+        width: 100%;
+        max-width: none;
+    }
+}
