@@ -1,60 +1,75 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/users.css') }}">
+@endsection
+
 @section('title', 'User Management')
 
 @section('content')
-<div class="container py-4">
-    <h2 class="mb-4 text-center">All Users</h2>
+    <div class="user-management">
+        <div class="page-header">
+            <h1 class="page-title">User Management</h1>
 
-    @if(session('success'))
-        <div class="alert alert-success text-center">{{ session('success') }}</div>
-    @endif
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    @if(session('error'))
-        <div class="alert alert-danger text-center">{{ session('error') }}</div>
-    @endif
-    <div class="text-end">
-        <a href="{{ route('users.create') }}" class="btn btn-primary mb-3"> Add New User</a>
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <a href="{{ route('users.create') }}" class="add-user-btn">
+                <i class="fas fa-plus"></i> Add New User
+            </a>
+        </div>
+
+        @if($users->count() > 0)
+            <div class="users-grid">
+                @foreach($users as $user)
+                    <div class="user-card">
+                        <h3 class="user-name">{{ $user->name }}</h3>
+
+                        <div class="user-detail">
+                            <i class="fas fa-envelope"></i>
+                            <span>{{ $user->email }}</span>
+                        </div>
+
+                        <div class="user-detail">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>{{ $user->orders_count }} orders</span>
+                        </div>
+
+                        <div class="user-detail">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Joined {{ $user->created_at->format('M Y') }}</span>
+                        </div>
+
+                        <div class="user-actions">
+                            <a href="{{ route('users.edit', $user->id) }}" class="action-btn edit-btn">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure?')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="empty-state">
+                <i class="fas fa-users empty-icon"></i>
+                <h3>No Users Found</h3>
+                <p>Get started by adding your first user</p>
+            </div>
+        @endif
     </div>
-    
-    <table class="table table-bordered text-center align-middle">
-        <thead class="table-light">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Orders</th>
-                <th>Joined At</th>
-                <th>Action</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($users as $user)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->orders_count}}</td>
-                    <td>{{ $user->created_at->format('Y-m-d') }}</td>
-                    <td>
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning" >Edit</a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')"style="display: inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                        </form>
-
-                        
-                    </td>
-
-                </tr>
-            @empty
-            <tr>
-                <td colspan="6">No users found.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
 @endsection

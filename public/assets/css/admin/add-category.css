@@ -1,0 +1,46 @@
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.form-control-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+}
+
+#selectedIconPreview {
+    font-size: 1.5rem;
+    color: #5D4037;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EFEBE9;
+    border-radius: 8px;
+}
+
+.btn-outline-secondary {
+    border-color: #5D4037;
+    color: #5D4037;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #5D4037;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #5D4037;
+    border-color: #5D4037;
+}
+
+.btn-primary:hover {
+    background-color: #3E2723;
+    border-color: #3E2723;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: #5D4037;
+}

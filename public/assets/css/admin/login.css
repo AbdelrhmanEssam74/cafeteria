@@ -16,10 +16,12 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }
 
 .login-container {
-    max-width: 500px;
+    max-width: 450px;
     width: 100%;
 }
 
@@ -35,66 +37,78 @@ body {
     color: white;
     text-align: center;
     padding: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 500;
     border-bottom: none;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
+.card-body {
+    padding: 2rem;
 }
 
-.logo i {
-    font-size: 1.75rem;
-}
-
-.logo h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-    font-weight: 600;
-}
-
-.card-title {
-    color: var(--primary);
-    font-weight: 500;
+.form-group {
     margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 500;
 }
 
 .form-control {
-    padding-left: 2.5rem;
-    background-color: var(--primary-extra-light);
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
     border: 1px solid var(--primary-light);
+    border-radius: 8px;
+    background-color: var(--white);
+    transition: all 0.2s;
 }
 
 .form-control:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 0.25rem rgba(121, 85, 72, 0.25);
-    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.15);
 }
 
-.input-group-text {
+.input-icon {
     position: absolute;
-    z-index: 5;
-    background: transparent;
-    border: none;
-    left: -0.3rem;
+    left: 1rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-light);
 }
 
-.btn-primary {
-    background-color: var(--primary);
-    border-color: var(--primary);
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
-.btn-primary:hover {
+.remember-me input {
+    margin-right: 0.5rem;
+}
+
+.btn-login {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-login:hover {
     background-color: var(--primary-dark);
-    border-color: var(--primary-dark);
 }
 
 .forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
     color: var(--accent);
     text-decoration: none;
     font-size: 0.875rem;
@@ -105,16 +119,18 @@ body {
     color: var(--primary-dark);
 }
 
-.footer {
-    color: var(--text-light);
+.invalid-feedback {
+    color: #B71C1C;
     font-size: 0.875rem;
-    text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 0.25rem;
 }
 
-/* Custom alert styling to match theme */
-.alert-danger {
-    background-color: rgba(244, 67, 54, 0.1);
-    border-color: rgba(244, 67, 54, 0.2);
-    color: #B71C1C;
+.form-control.is-invalid {
+    border-color: #B71C1C;
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.5rem;
+    }
 }

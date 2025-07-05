@@ -1,0 +1,44 @@
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+.page-item.active .page-link {
+    background-color: #5D4037;
+    border-color: #5D4037;
+}
+
+.page-link {
+    color: #5D4037;
+}
+
+.page-item:not(.active) .page-link:hover {
+    background-color: #EFEBE9;
+    color: #3E2723;
+}
+
+.btn-outline-primary {
+    color: #5D4037;
+    border-color: #5D4037;
+}
+
+.btn-outline-primary:hover {
+    background-color: #5D4037;
+    color: white;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}

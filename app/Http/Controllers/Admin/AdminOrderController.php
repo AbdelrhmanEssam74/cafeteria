@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\User;
@@ -15,30 +16,30 @@ class AdminOrderController extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        $query = Order::with('user');
+        public function index(Request $request)
+        {
+            $query = Order::with('user');
 
-        if ($request->start_date) {
-            $query->whereDate('created_at', '>=', $request->start_date);
+            if ($request->start_date) {
+                $query->whereDate('created_at', '>=', $request->start_date);
+            }
+
+            if ($request->end_date) {
+                $query->whereDate('created_at', '<=', $request->end_date);
+            }
+
+            if ($request->status) {
+                $query->where('status', $request->status);
+            }
+
+            $orders = $query->latest()->paginate(9);
+
+            return view('admin.orders.index', compact('orders'));
         }
-
-        if ($request->end_date) {
-            $query->whereDate('created_at', '<=', $request->end_date);
-        }
-
-        if ($request->status) {
-            $query->where('status', $request->status);
-        }
-
-        $orders = $query->latest()->paginate(10);
-
-        return view('admin.orders.index', compact('orders'));
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -47,8 +48,9 @@ class AdminOrderController extends Controller
     {
         $users = User::where('role', 'user')->get();
         $products = Product::where('availability', true)->get();
+        $categories = Category::all();
 
-        return view('admin.orders.create', compact('users', 'products'));
+        return view('admin.orders.create', compact('users', 'products' , 'categories'));
     }
 
     /**
