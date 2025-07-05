@@ -1,0 +1,98 @@
+
+body {
+    background-color: #DCE5E4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.login-card {
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    max-width: 900px;
+    display: flex;
+    width: 100%;
+}
+
+.login-image {
+    flex: 1;
+    background: url('/assets/images/login-side.jpg') center/cover no-repeat;
+    min-height: 400px;
+}
+
+.login-form {
+    flex: 1;
+    padding: 2rem;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3B5D50;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2F2F2F;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    padding: 0.65rem;
+    border: 1px solid #DCE5E4;
+}
+
+.form-control:focus {
+    border-color: #3B5D50;
+    box-shadow: 0 0 0 0.2rem rgba(59, 93, 80, 0.15);
+}
+
+.form-check-input:checked {
+    background-color: #D4A762;
+    border-color: #D4A762;
+}
+
+.btn-primary {
+    background-color: #D4A762;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.2rem;
+}
+
+.btn-primary:hover {
+    background-color: #c09554;
+}
+
+.btn-link {
+    color: #4285F4;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+.invalid-feedback {
+    font-size: 0.875rem;
+    color: #DC3545;
+}
+
+@media (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+    }
+
+    .login-image {
+        display: none;
+    }
+}
