@@ -2,6 +2,10 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/admin/create-user.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/nav.css') }}">
+@endsection
+@section('navbar')
+    @include('includes.admin.sidebar')
 @endsection
 
 @section('title', 'Add User')

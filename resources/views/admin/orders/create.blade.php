@@ -3,6 +3,10 @@
 @section('title', 'Create Order')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/admin/create-order.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/nav.css') }}">
+@endsection
+@section('navbar')
+    @include('includes.admin.sidebar')
 @endsection
 @section('content')
     <div class="container py-4">
@@ -33,7 +37,7 @@
                 <label class="form-label fw-bold">Select Customer</label>
                 <select name="user_id" class="form-select form-select-lg" required>
                     <option value="">Choose Customer...</option>
-                    @foreach($users as $user)
+                    @foreach ($users as $user)
                         <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
                             {{ $user->name }} (Room: {{ $user->room_number ?? 'N/A' }})
                         </option>
@@ -52,32 +56,30 @@
                 <label class="form-label">Filter by Category:</label>
                 <select id="categoryFilter" class="form-select">
                     <option value="all">All Categories</option>
-                    @foreach($categories as $category)
+                    @foreach ($categories as $category)
                         <option value="cat-{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="row g-4 product-grid">
-                @foreach($products as $product)
+                @foreach ($products as $product)
                     <div class="col-md-4 col-lg-3 product-card" data-category="cat-{{ $product->category_id }}">
                         <div class="card h-100 shadow-sm border-0">
                             <div class="position-relative">
-                                @if($product->image)
-                                    <img src="{{ asset($product->image) }}"
-                                         class="card-img-top"
-                                         alt="{{ $product->name }}"
-                                         style="height: 180px; object-fit: cover;">
+                                @if ($product->image)
+                                    <img src="{{ asset($product->image) }}" class="card-img-top"
+                                        alt="{{ $product->name }}" style="height: 180px; object-fit: cover;">
                                 @else
                                     <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
-                                         style="height: 180px;">
+                                        style="height: 180px;">
                                         <i class="fas fa-image fa-3x text-muted"></i>
                                     </div>
                                 @endif
                                 <div class="position-absolute top-0 end-0 m-2">
-                                <span class="badge bg-primary">
-                                    {{ $product->category->name ?? 'Uncategorized' }}
-                                </span>
+                                    <span class="badge bg-primary">
+                                        {{ $product->category->name ?? 'Uncategorized' }}
+                                    </span>
                                 </div>
                             </div>
 
@@ -93,22 +95,19 @@
 
                                     <div class="input-group">
                                         <button type="button" class="btn btn-outline-secondary decrement"
-                                                data-target="quantity-{{ $product->id }}">
+                                            data-target="quantity-{{ $product->id }}">
                                             <i class="fas fa-minus"></i>
                                         </button>
-                                        <input type="number"
-                                               id="quantity-{{ $product->id }}"
-                                               name="products[{{ $loop->index }}][quantity]"
-                                               class="form-control text-center"
-                                               min="0"
-                                               value="0"
-                                               data-price="{{ $product->price }}">
+                                        <input type="number" id="quantity-{{ $product->id }}"
+                                            name="products[{{ $loop->index }}][quantity]" class="form-control text-center"
+                                            min="0" value="0" data-price="{{ $product->price }}">
                                         <button type="button" class="btn btn-outline-secondary increment"
-                                                data-target="quantity-{{ $product->id }}">
+                                            data-target="quantity-{{ $product->id }}">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>
-                                    <input type="hidden" name="products[{{ $loop->index }}][id]" value="{{ $product->id }}">
+                                    <input type="hidden" name="products[{{ $loop->index }}][id]"
+                                        value="{{ $product->id }}">
                                 </div>
                             </div>
                         </div>

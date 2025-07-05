@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/admin/add-category.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/nav.css') }}">
+@endsection
+@section('navbar')
+    @include('includes.admin.sidebar')
 @endsection
 @section('title', 'Add New Category')
 
@@ -32,66 +36,63 @@
 
                     <div class="mb-4">
                         <label for="name" class="form-label fw-bold">Category Name</label>
-                        <input type="text" name="name" id="name"
-                               class="form-control form-control-lg"
-                               placeholder="e.g. Coffee, Pastries, Sandwiches"
-                               value="{{ old('name') }}"
-                               required>
+                        <input type="text" name="name" id="name" class="form-control form-control-lg"
+                            placeholder="e.g. Coffee, Pastries, Sandwiches" value="{{ old('name') }}" required>
                         <div class="form-text">Enter a descriptive name for your new category</div>
                     </div>
 
-{{--                    <div class="mb-4">--}}
-{{--                        <label for="description" class="form-label fw-bold">Description (Optional)</label>--}}
-{{--                        <textarea name="description" id="description"--}}
-{{--                                  class="form-control"--}}
-{{--                                  rows="3"--}}
-{{--                                  placeholder="Brief description of this category">{{ old('description') }}</textarea>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="mb-4"> --}}
+                    {{--                        <label for="description" class="form-label fw-bold">Description (Optional)</label> --}}
+                    {{--                        <textarea name="description" id="description" --}}
+                    {{--                                  class="form-control" --}}
+                    {{--                                  rows="3" --}}
+                    {{--                                  placeholder="Brief description of this category">{{ old('description') }}</textarea> --}}
+                    {{--                    </div> --}}
 
-{{--                    <div class="mb-4">--}}
-{{--                        <label for="icon" class="form-label fw-bold">Category Icon</label>--}}
-{{--                        <div class="d-flex align-items-center">--}}
-{{--                            <div class="dropdown me-3">--}}
-{{--                                <button class="btn btn-outline-secondary dropdown-toggle" type="button"--}}
-{{--                                        id="iconDropdown" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                                    <i class="fas fa-tag me-2"></i> Select Icon--}}
-{{--                                </button>--}}
-{{--                                <ul class="dropdown-menu" aria-labelledby="iconDropdown">--}}
-{{--                                    <li><h6 class="dropdown-header">Common Icons</h6></li>--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item" href="#" data-icon="fa-coffee">--}}
-{{--                                            <i class="fas fa-coffee me-2"></i> Coffee--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item" href="#" data-icon="fa-utensils">--}}
-{{--                                            <i class="fas fa-utensils me-2"></i> Food--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item" href="#" data-icon="fa-mug-hot">--}}
-{{--                                            <i class="fas fa-mug-hot me-2"></i> Hot Drinks--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item" href="#" data-icon="fa-ice-cream">--}}
-{{--                                            <i class="fas fa-ice-cream me-2"></i> Desserts--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                    <li><hr class="dropdown-divider"></li>--}}
-{{--                                    <li>--}}
-{{--                                        <a class="dropdown-item" href="#" data-icon="fa-tag">--}}
-{{--                                            <i class="fas fa-tag me-2"></i> Default--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                            <input type="hidden" name="icon" id="icon" value="fa-tag">--}}
-{{--                            <div id="selectedIconPreview">--}}
-{{--                                <i class="fas fa-tag"></i>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="mb-4"> --}}
+                    {{--                        <label for="icon" class="form-label fw-bold">Category Icon</label> --}}
+                    {{--                        <div class="d-flex align-items-center"> --}}
+                    {{--                            <div class="dropdown me-3"> --}}
+                    {{--                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" --}}
+                    {{--                                        id="iconDropdown" data-bs-toggle="dropdown" aria-expanded="false"> --}}
+                    {{--                                    <i class="fas fa-tag me-2"></i> Select Icon --}}
+                    {{--                                </button> --}}
+                    {{--                                <ul class="dropdown-menu" aria-labelledby="iconDropdown"> --}}
+                    {{--                                    <li><h6 class="dropdown-header">Common Icons</h6></li> --}}
+                    {{--                                    <li> --}}
+                    {{--                                        <a class="dropdown-item" href="#" data-icon="fa-coffee"> --}}
+                    {{--                                            <i class="fas fa-coffee me-2"></i> Coffee --}}
+                    {{--                                        </a> --}}
+                    {{--                                    </li> --}}
+                    {{--                                    <li> --}}
+                    {{--                                        <a class="dropdown-item" href="#" data-icon="fa-utensils"> --}}
+                    {{--                                            <i class="fas fa-utensils me-2"></i> Food --}}
+                    {{--                                        </a> --}}
+                    {{--                                    </li> --}}
+                    {{--                                    <li> --}}
+                    {{--                                        <a class="dropdown-item" href="#" data-icon="fa-mug-hot"> --}}
+                    {{--                                            <i class="fas fa-mug-hot me-2"></i> Hot Drinks --}}
+                    {{--                                        </a> --}}
+                    {{--                                    </li> --}}
+                    {{--                                    <li> --}}
+                    {{--                                        <a class="dropdown-item" href="#" data-icon="fa-ice-cream"> --}}
+                    {{--                                            <i class="fas fa-ice-cream me-2"></i> Desserts --}}
+                    {{--                                        </a> --}}
+                    {{--                                    </li> --}}
+                    {{--                                    <li><hr class="dropdown-divider"></li> --}}
+                    {{--                                    <li> --}}
+                    {{--                                        <a class="dropdown-item" href="#" data-icon="fa-tag"> --}}
+                    {{--                                            <i class="fas fa-tag me-2"></i> Default --}}
+                    {{--                                        </a> --}}
+                    {{--                                    </li> --}}
+                    {{--                                </ul> --}}
+                    {{--                            </div> --}}
+                    {{--                            <input type="hidden" name="icon" id="icon" value="fa-tag"> --}}
+                    {{--                            <div id="selectedIconPreview"> --}}
+                    {{--                                <i class="fas fa-tag"></i> --}}
+                    {{--                            </div> --}}
+                    {{--                        </div> --}}
+                    {{--                    </div> --}}
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                         <button type="reset" class="btn btn-outline-secondary me-md-2">
