@@ -1,0 +1,39 @@
+.toast {
+    background-color: #3a2e1f;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toast-body {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.toast-body::before {
+    content: "✓";
+    color: #d4a762;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.loading-spinner {
+    filter: brightness(0) invert(1);
+    /* Makes spinner white */
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.success-icon {
+    filter: brightness(0) invert(1);
+    /* White checkmark */
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.error-icon {
+    filter: none;
+    /* Keeps original red color from SVG */
+    width: 24px !important;
+    height: 24px !important;
+}
