@@ -147,7 +147,7 @@
                     @endif
                 </h2>
 
-                <p class="lead mb-0">
+                {{-- <p class="lead mb-0">
                     @if (request('category'))
                         <span class="category-description">
                             {{ $categories->firstWhere('id', request('category'))->description ?? 'Handcrafted with care' }}
@@ -157,7 +157,7 @@
                             Discover our wide range of warm and cold beverages
                         </span>
                     @endif
-                </p>
+                </p> --}}
             </div>
 
             <!-- Products Grid -->
@@ -208,7 +208,7 @@
 
                     <div class="row g-0">
                         <div class="col-md-6">
-                            <img id="modalProductImage" src="" class="img-fluid rounded-start h-100"
+                            <img id="modalProductImage" src="{{asset('assets/images/'. $product->image)}}" class="img-fluid rounded-start h-100"
                                 alt="">
                         </div>
                         <div class="col-md-6 p-4">
@@ -217,7 +217,7 @@
                                 <span id="modalProductPrice" class="fs-4 fw-bold me-3"></span>
                                 <span id="modalProductCategory" class="badge"></span>
                             </div>
-                            <p id="modalProductDescription" class="mb-4"></p>
+                            <p id="modalProductDescription" class="mb-4"></p>   
 
                             <form id="modalAddToCartForm" class="mt-auto">
                                 @csrf
@@ -271,7 +271,7 @@
                 document.getElementById('modalProductName').textContent = 'Loading...';
                 document.getElementById('modalProductPrice').textContent = '';
                 document.getElementById('modalProductCategory').textContent = '';
-                document.getElementById('modalProductDescription').textContent = 'Loading product details...';
+                // document.getElementById('modalProductDescription').textContent = 'Loading product details...';//
                 document.getElementById('modalProductImage').innerHTML =
                     '<div class="spinner-border text-warning"></div>';
 
@@ -297,8 +297,8 @@
                         document.getElementById('modalProductPrice').textContent =
                             `$${parseFloat(data.price).toFixed(2)}`;
                         document.getElementById('modalProductCategory').textContent = data.category.name;
-                        document.getElementById('modalProductDescription').textContent =
-                            data.description || 'No description available';
+                        // document.getElementById('modalProductDescription').textContent =
+                        //     data.description || 'No description available';
                         document.getElementById('modalProductId').value = data.id;
 
                         // Handle image - use placeholder if not found
@@ -311,8 +311,8 @@
                     })
                     .catch(error => {
                         console.error('Error loading product details:', error);
-                        document.getElementById('modalProductDescription').textContent =
-                            `Error loading product: ${error.message}`;
+                        // document.getElementById('modalProductDescription').textContent =
+                        //     `Error loading product: ${error.message}`;
                         document.getElementById('modalProductImage').src = '/assets/images/placeholder.jpg';
                         isModalLoading = false;
                     });

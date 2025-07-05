@@ -49,7 +49,7 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         // Check if user owns the order or is admin
-        if (auth()->id() !== $order->user_id && !auth()->user()->isAdmin()) {
+        if (Auth::id() !== $order->user_id && !Auth::user()->isAdmin()) {
             abort(403);
         }
 
@@ -62,7 +62,7 @@ class OrderController extends Controller
     public function deleteAll()
     {
         // Delete all orders for the current user
-        Order::where('user_id', auth()->id())->delete();
+        Order::where('user_id', Auth::id())->delete();
 
         return redirect()->route('orders.index')
             ->with('success', 'All orders deleted successfully');

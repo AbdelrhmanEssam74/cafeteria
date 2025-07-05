@@ -48,16 +48,11 @@ Route::prefix('cart')->group(function () {
     Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
 });
 
-// Checkout Routes (Protected by auth middleware)
-Route::middleware(['auth'])->prefix('checkout')->group(function () {
-    Route::get('/', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/', [CheckoutController::class, 'store'])->name('checkout.store');
-});
 
 
 // Order Routes (Protected by auth middleware)
 Route::middleware(['auth'])->prefix('orders')->group(function () {
-    Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/', [OrderController::class, 'index'])->name('user.orders.index');
     Route::get('/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     // Add these two new routes for deletion

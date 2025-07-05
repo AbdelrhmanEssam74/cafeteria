@@ -38,23 +38,23 @@
 
 <body>
 
-    @if (auth()->user()->role === 'admin')
-        <div class="d-flex" style="min-height: 100vh;">
-            @yield('navbar')
-            <div class="flex-grow-1 p-4">
-                @yield('content')
-            </div>
-        </div>
-    @else
-        <!-- Navbar -->
+    @if (auth()->check() && auth()->user()->role === 'admin')
+    <div class="d-flex" style="min-height: 100vh;">
         @yield('navbar')
-        <!-- Main Content -->
-        <main class="">
+        <div class="flex-grow-1 p-4">
             @yield('content')
-        </main>
-        {{-- Footer --}}
-        @yield('footer')
-    @endif
+        </div>
+    </div>
+@else
+    <!-- Navbar -->
+    @yield('navbar')
+    <!-- Main Content -->
+    <main class="">
+        @yield('content')
+    </main>
+    {{-- Footer --}}
+    @yield('footer')
+@endif
 
     <!-- JS Files -->
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>

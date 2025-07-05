@@ -39,7 +39,7 @@ class PageController extends Controller
         $products = $query->paginate(9)->appends($request->query());
 
         // Get all categories for filter dropdown
-        $categories = Category::select('id', 'name', 'slug', 'description')->get();
+        $categories = Category::select('id', 'name', 'slug')->get();
 
         return view('user.menu', [
             'products' => $products,
@@ -90,7 +90,7 @@ class PageController extends Controller
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
-            'description' => $product->description,
+            // 'description' => $product->description,
             'image' => $product->image,
             'image_exists' => $imageExists,
             'category' => [

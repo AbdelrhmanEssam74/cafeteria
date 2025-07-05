@@ -57,7 +57,7 @@
                         <li class="nav-item">
                             @auth
                                 <a class="nav-link {{ request()->is('orders*') ? 'active' : '' }}"
-                                   href="{{ route('orders.index') }}">
+                                   href="{{ route('user.orders.index') }}">
                                     <span class="nav-link-content"> My Orders</span>
 
                                 </a>
