@@ -68,9 +68,14 @@ Route::middleware(['auth'])->prefix('orders')->group(function () {
 Route::post('/cart/order', [CartController::class, 'storeOrder'])->name('cart.order');
 
 // Admin Routes
-Route::resource('users', AdminUserController::class);
-Route::resource('products', ProductController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('admin/orders', AdminOrderController::class);
-Route::post('/{id}/status', [AdminOrderController::class, 'update'])->name('orders.status');
-Route::get('dashboard' , [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'admin'])->
+    prefix('admin')->
+    group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::resource('users', AdminUserController::class);
+        Route::resource('products', ProductController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('orders', AdminOrderController::class);
+        Route::post('/{id}/status', [AdminOrderController::class, 'update'])->name('orders.status');
+
+    });
