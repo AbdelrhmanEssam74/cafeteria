@@ -15,8 +15,8 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $users = User::paginate(9);
+        return view('Admin.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +24,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('Admin.users.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class AdminUserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-        return view('admin.users.edit', compact('user'));
+        return view('Admin.users.edit', compact('user'));
     }
 
     /**
