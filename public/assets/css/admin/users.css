@@ -1,15 +1,50 @@
-
 :root {
-    --primary: #5D4037;
-    --primary-light: #8D6E63;
-    --primary-extra-light: #D7CCC8;
-    --background: #EFEBE9;
+    --primary: #37474F;
+    --primary-light: #62727b;
+    --primary-extra-light: #CFD8DC;
+    --background: #ECEFF1;
     --card-bg: #FFFFFF;
-    --text-dark: #3E2723;
-    --text-light: #8D6E63;
-    --success: #689F38;
-    --danger: #D32F2F;
+    --text-dark: #263238;
+    --text-light: #90A4AE;
+    --success: #43A047;
+    --danger: #E53935;
+    --white: #FFFFFF;
+    --shadow: 0 4px 8px rgba(0,0,0,0.08);
+    --transition: all 0.3s ease;
 }
+.add-user-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+}
+
+.add-user-btn:hover {
+    background-color: var(--primary-light);
+    transform: scale(1.02);
+}
+
+.user-card {
+    border: 1px solid var(--primary-extra-light);
+}
+
+.empty-state {
+    background-color: var(--background);
+    border: 2px dashed var(--primary-extra-light);
+}
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+}
+
 
 .user-management {
     max-width: 1200px;

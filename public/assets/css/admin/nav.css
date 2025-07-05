@@ -1,64 +1,64 @@
 /* Custom navbar styling */
-.navbar {
-    padding: 0.75rem 1rem;
-    background-color: #5D4037 !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+:root {
+    --primary: #5D4037;
+    --primary-light: #8D6E63;
+    --primary-extra-light: #D7CCC8;
+    --background: #EFEBE9;
+    --card-bg: #FFFFFF;
+    --text-dark: #3E2723;
+    --text-medium: #5D4037;
+    --text-light: #8D6E63;
+    --white: #FFFFFF;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+/* Sidebar Custom Styling */
+.sidebar {
+    background-color: var(--primary);
+    color: var(--white);
+    width: 260px;
+    min-height: 100vh;
+    padding: 1.5rem 1rem;
+    box-shadow: var(--shadow-md);
 }
 
-.navbar-brand {
-    font-size: 1.25rem;
-    padding: 0.5rem 0;
-}
-
-.nav-link {
-    padding: 0.75rem 1rem;
+.sidebar a {
+    color: var(--white);
     font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: 4px;
-    margin: 0.15rem 0;
-}
-
-.nav-link.active {
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-.nav-link:hover:not(.btn) {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.dropdown-menu {
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0.6rem 1rem;
+    display: block;
     border-radius: 8px;
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+    transition: var(--transition);
 }
 
-.dropdown-item {
-    padding: 0.5rem 1.5rem;
-    transition: all 0.2s ease;
+.sidebar a:hover {
+    background-color: var(--primary-light);
+    color: var(--white);
 }
 
-.dropdown-item:hover {
-    background-color: #EFEBE9;
-    color: #5D4037;
+.sidebar a.active {
+    background-color: var(--white);
+    color: var(--primary);
+    font-weight: 600;
 }
 
-/* Responsive adjustments */
-@media (max-width: 991.98px) {
-    .navbar-collapse {
-        padding: 1rem 0;
-    }
+.sidebar .dropdown-toggle {
+    padding: 0.6rem 1rem;
+    background-color: transparent;
+    border: none;
+    color: var(--white);
+}
 
-    .nav-link {
-        margin: 0.25rem 0;
-    }
+.sidebar .dropdown-menu {
+    background-color: var(--primary-extra-light);
+    color: var(--text-dark);
+}
 
-    .navbar-nav .btn {
-        display: inline-block;
-        margin: 0.25rem 0;
-        width: 100%;
-        text-align: left;
-        padding: 0.5rem 1rem;
-    }
+.sidebar .dropdown-item:hover {
+    background-color: var(--background);
+    color: var(--primary);
 }
