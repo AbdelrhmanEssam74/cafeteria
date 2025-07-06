@@ -15,24 +15,6 @@
 
             <div class="collapse navbar-collapse" id="navbarsBrewHaven">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-
-                    @if (auth()->check() && auth()->user()->role === 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">Manage Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.index') }}">Manage Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories.index') }}">Manage Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('orders.index') }}">Manage Orders</a>
-                        </li>
-                    @else
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">
                                 <span class="nav-link-content">Home</span>
@@ -64,7 +46,6 @@
                                 </a>
                             @endauth
                         </li>
-                    @endif
                 </ul>
 
 
@@ -97,6 +78,12 @@
                                 document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt me-2"></i> {{ __('Logout') }}
                                 </a>
+                                @if(auth()->check() && auth()->user()->role === "admin")
+                                <a  class="dropdown-item" href="{{route('admin.dashboard')}}">
+                                    <i class="fa-regular fa-file-user"></i>
+                                    Dashboard
+                                </a>
+                                @endif
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
