@@ -16,7 +16,8 @@
                 <div class="col-lg-6">
                     <div class="intro-excerpt">
                         <h1 class="display-4 mb-3" style="color: #3a2e1f; font-weight: 700;">My Orders</h1>
-                        <p class="mb-4 lead" style="color: #6d5c4b;">Track and manage all your coffee orders in one place</p>
+                        <p class="mb-4 lead" style="color: #6d5c4b;">Track and manage all your coffee orders in one place
+                        </p>
                         <div class="d-flex gap-3">
                             <a href="{{ route('menu') }}" class="btn btn-primary btn-lg px-4">
                                 <i class="fas fa-coffee me-2"></i> Order Again
@@ -40,17 +41,27 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <!-- Add this above the table -->
+                <!-- Add this above the table, replace the existing empty div -->
                 @if (!$orders->isEmpty())
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div></div> <!-- Empty div for spacing -->
-                        <form id="deleteAllForm" action="{{ route('orders.delete-all') }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-danger" onclick="confirmDeleteAll()">
-                                <i class="fas fa-trash-alt me-2"></i> Delete All Orders
-                            </button>
+                        <form method="GET" action="{{ route('user.orders.index') }}" class="d-flex gap-3">
+                            <div class="input-group" style="width: 250px;">
+                                <input type="date" class="form-control" name="filter_date"
+                                    value="{{ request('filter_date') }}" max="{{ now()->format('Y-m-d') }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-filter me-1"></i> Filter
+                                </button>
+                                @if (request('filter_date'))
+                                    <a href="{{ route('user.orders.index') }}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                @endif
+                            </div>
                         </form>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteAllOrdersModal">
+                            <i class="fas fa-trash-alt me-2"></i> Delete All Orders
+                        </button>
                     </div>
                 @endif
 
@@ -71,7 +82,47 @@
                                     <thead class="bg-light">
                                         <tr>
                                             <th class="ps-4">Order #</th>
-                                            <th>Date</th>
+                                            <!-- Replace the current date header cell with this: -->
+                                            <th>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                                                        id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Date
+                                                        @if (request('sort') == 'date_asc')
+                                                            <i class="fas fa-sort-up ms-1"></i>
+                                                        @elseif(request('sort') == 'date_desc')
+                                                            <i class="fas fa-sort-down ms-1"></i>
+                                                        @else
+                                                            <i class="fas fa-sort ms-1"></i>
+                                                        @endif
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ request()->fullUrlWithQuery(['sort' => 'date_desc']) }}">
+                                                                <i class="fas fa-sort-down me-2"></i> Newest First
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ request()->fullUrlWithQuery(['sort' => 'date_asc']) }}">
+                                                                <i class="fas fa-sort-up me-2"></i> Oldest First
+                                                            </a>
+                                                        </li>
+                                                        @if (request('sort'))
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ request()->fullUrlWithQuery(['sort' => null]) }}">
+                                                                    <i class="fas fa-times me-2"></i> Clear Sorting
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </th>
                                             <th>Items</th>
                                             <th>Total</th>
                                             <th>Status</th>
@@ -97,7 +148,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-end pe-4">
-                                                    <a href="{{ route('orders.show', $order) }}"
+                                                    <a href="{{ route('user.orders.show', $order) }}"
                                                         class="btn btn-warning btn-sm text-white">
                                                         <i class="fas fa-eye me-1"></i> View
                                                     </a>
@@ -162,7 +213,7 @@
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                 <i class="fas fa-times me-1"></i> No, Keep Order
                             </button>
-                            <form action="{{ route('orders.cancel', $order) }}" method="POST">
+                            <form action="{{ route('user.orders.cancel', $order) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-check me-1"></i> Yes, Cancel Order
@@ -208,7 +259,7 @@
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             <i class="fas fa-times me-1"></i> No, Keep Order
                         </button>
-                        <form action="{{ route('orders.destroy', $order) }}" method="POST">
+                        <form action="{{ route('user.orders.destroy', $order) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">
@@ -220,6 +271,50 @@
             </div>
         </div>
     @endforeach
+
+    <!-- Delete All Orders Modal -->
+    <div class="modal fade" id="deleteAllOrdersModal" tabindex="-1" aria-labelledby="deleteAllOrdersModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteAllOrdersModalLabel">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Confirm Deletion
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="flex-shrink-0 me-3">
+                            <i class="fas fa-trash-alt text-danger fa-3x"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Delete ALL your orders permanently?</h5>
+                            <p class="mb-0 text-muted">This will remove all {{ $orders->count() }} orders from your
+                                history.</p>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle me-2"></i> This action cannot be undone. All your order history
+                        will be permanently deleted.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> No, Keep Orders
+                    </button>
+                    <form id="deleteAllForm" action="{{ route('user.orders.delete-all') }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-1"></i> Yes, Delete All
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <style>
         .hero {
@@ -305,26 +400,71 @@
             border-color: #ffeeba;
             color: #856404;
         }
+
+        /* Add this to the existing style section */
+        .input-group {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .input-group input[type="date"] {
+            border-right: none;
+        }
+
+        .input-group .btn {
+            border-radius: 0;
+        }
+
+        .input-group .btn-outline-secondary {
+            border-left: none;
+        }
+
+        /* Add this to your existing style section */
+        .dropdown-toggle {
+            padding: 0.25rem 0.5rem;
+            font-weight: 600;
+            color: #3a2e1f;
+            background: transparent;
+            border: none;
+            box-shadow: none !important;
+        }
+
+        .dropdown-toggle:after {
+            display: none;
+        }
+
+        .dropdown-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dropdown-menu {
+            border-radius: 0.5rem;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            color: #3a2e1f;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f5f0;
+            color: #3a2e1f;
+        }
+
+        .dropdown-item.active,
+        .dropdown-item:active {
+            background-color: #3a2e1f;
+            color: white;
+        }
     </style>
 
 @section('scripts')
-    <script>
-        function confirmDeleteAll() {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "This will permanently delete ALL your orders!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete all!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('deleteAllForm').submit();
-                }
-            });
-        }
-    </script>
+
 @endsection
 
 @endsection

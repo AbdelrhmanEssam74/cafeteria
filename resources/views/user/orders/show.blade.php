@@ -1,4 +1,12 @@
-@extends('layouts.user.master')
+@extends('layouts.app')
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/user/navbar.css') }}">
+@endsection
+
+@section('navbar')
+    @include('includes.user.navbar')
+@endsection
 
 @section('title', 'Order Details')
 
@@ -15,7 +23,7 @@
                         <p class="mb-4 lead" style="color: #6d5c4b;">Details for your coffee order placed on
                             {{ $order->created_at->format('M d, Y') }}</p>
                         <div class="d-flex gap-3">
-                            <a href="{{ route('orders.index') }}" class="btn btn-outline-primary btn-lg px-4">
+                            <a href="{{ route('user.orders.index') }}" class="btn btn-outline-primary btn-lg px-4">
                                 <i class="fas fa-arrow-left me-2"></i> Back to Orders
                             </a>
                             @if ($order->canBeCancelled())
@@ -195,7 +203,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         <i class="fas fa-times me-2"></i> No, Keep Order
                     </button>
-                    <form id="cancelOrderForm" action="{{ route('orders.cancel', $order) }}" method="POST">
+                    <form id="cancelOrderForm" action="{{ route('user.orders.cancel', $order) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-check me-2"></i> Yes, Cancel Order
@@ -238,7 +246,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         <i class="fas fa-times me-1"></i> No, Keep Order
                     </button>
-                    <form action="{{ route('orders.destroy', $order) }}" method="POST">
+                    <form action="{{ route('user.orders.destroy', $order) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
@@ -298,7 +306,7 @@
         }
 
         .btn-outline-primary {
-            color: #fff;
+            color: black;
             border-color: #3a2e1f;
         }
 

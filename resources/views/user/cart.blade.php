@@ -69,8 +69,8 @@
                                             <td class="ps-4">
                                                 <div class="d-flex align-items-center">
                                                     @if ($item['image'])
-                                                        <img src="{{ asset('assets/images/' . $item['image']) }}"
-                                                            width="80" class="me-4 rounded">
+                                                        <img src="{{ asset('/' . $item['image']) }}" width="80"
+                                                            class="me-4 rounded">
                                                     @endif
                                                     <div>
                                                         <h6 class="mb-0">{{ $item['name'] }}</h6>
@@ -82,18 +82,21 @@
                                             <td>
                                                 <form class="quantity-form" data-item-id="{{ $id }}">
                                                     @csrf
-                                                    <div class="input-group" style="width: 120px;">
+                                                    <div class="input-group" style="width: 140px;">
+                                                        <!-- Increased width from 120px to 140px -->
                                                         <button class="btn btn-outline-secondary minus-btn"
                                                             type="button">-</button>
                                                         <input type="number" name="quantity"
                                                             value="{{ $item['quantity'] }}" min="1"
-                                                            class="form-control text-center quantity-input">
+                                                            class="form-control text-center quantity-input"
+                                                            style="min-width: 50px;"> <!-- Added min-width -->
                                                         <button class="btn btn-outline-secondary plus-btn"
                                                             type="button">+</button>
                                                     </div>
                                                 </form>
                                             </td>
-                                            <td class="item-total">${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
+                                            <td class="item-total">
+                                                ${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
                                             <td class="text-end pe-4">
                                                 <button type="button" class="btn btn-sm btn-outline-danger"
                                                     data-bs-toggle="modal"
@@ -203,12 +206,12 @@
                                 </button>
 
                                 <!-- Proceed to Checkout Button -->
-                              <form action="{{ route('cart.order') }}" method="POST" class="flex-grow-1">
-    @csrf
-    <button type="submit" class="btn btn-primary py-2 w-100">
-        Place Order <i class="fas fa-chevron-right ms-2"></i>
-    </button>
-</form>
+                                <form action="{{ route('cart.storeOrder') }}" method="POST" class="flex-grow-1">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary py-2 w-100">
+                                        Place Order <i class="fas fa-chevron-right ms-2"></i>
+                                    </button>
+                                </form>
 
                             </div>
                         </div>
@@ -293,43 +296,59 @@
                 }
             }
 
-            // Function to handle quantity change
+            // Function to update cart badge count
+            function updateCartBadgeCount(newCount) {
+                const cartBadge = document.querySelector('.cart-count');
+                if (cartBadge) {
+                    cartBadge.textContent = newCount;
+                    cartBadge.style.display = newCount > 0 ? '' : 'none';
+                }
+            }
+
+            // Modify the handleQuantityChange function to update the cart count
             function handleQuantityChange(itemId, newQuantity) {
                 const formData = new FormData();
                 formData.append('_token', document.querySelector('input[name="_token"]').value);
                 formData.append('quantity', newQuantity);
 
                 fetch(`/cart/update/${itemId}`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update the item total
-                        const itemTotalElement = document.querySelector(`form[data-item-id="${itemId}"]`).closest('tr').querySelector('.item-total');
-                        if (itemTotalElement) {
-                            itemTotalElement.textContent = '$' + (data.item_price * newQuantity).toFixed(2);
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
                         }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update the item total
+                            const itemTotalElement = document.querySelector(`form[data-item-id="${itemId}"]`)
+                                .closest('tr').querySelector('.item-total');
+                            if (itemTotalElement) {
+                                itemTotalElement.textContent = '$' + (data.item_price * newQuantity).toFixed(2);
+                            }
 
-                        // Update cart totals
-                        updateCartTotals(data);
+                            // Update cart totals
+                            updateCartTotals(data);
 
-                        // Show appropriate toast message
-                        const action = newQuantity > parseInt(itemTotalElement.dataset.prevQuantity || newQuantity) ? 'increased' : 'decreased';
-                        showToast(`Item quantity ${action} successfully.`);
-                    } else {
-                        showToast(data.message || 'Error updating cart.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('An error occurred while updating the cart.');
-                });
+                            // Update cart badge count
+                            if (data.cart_count !== undefined) {
+                                updateCartBadgeCount(data.cart_count);
+                            }
+
+                            // Show appropriate toast message
+                            const action = newQuantity > parseInt(itemTotalElement.dataset.prevQuantity ||
+                                newQuantity) ? 'increased' : 'decreased';
+                            showToast(`Item quantity ${action} successfully.`);
+                        } else {
+                            showToast(data.message || 'Error updating cart.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showToast('An error occurred while updating the cart.');
+                    });
             }
 
             // Quantity input change event
@@ -373,6 +392,7 @@
         });
     </script>
 @endsection
+
 @section('footer')
     @include('includes.user.footer')
 @endsection

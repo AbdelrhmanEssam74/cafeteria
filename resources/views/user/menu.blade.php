@@ -60,7 +60,7 @@
                                 <li>
                                     <a class="dropdown-item {{ request('category') == $category->id ? 'active' : '' }}"
                                         href="{{ route('menu', array_merge(request()->except(['category', 'page']), ['category' => $category->id])) }}">
-                                        <i class="fas fa-{{ $category->image ?? 'coffee' }} me-2"></i> {{ $category->name }}
+                                        <i class="fas fa-coffee me-2"></i> {{ $category->name }}
                                     </a>
                                 </li>
                             @endforeach
@@ -135,8 +135,7 @@
                 <h2 class="section-title">
                     @if (request('category'))
                         <span class="category-title">
-                            <i
-                                class="fas fa-{{ $categories->firstWhere('id', request('category'))->slug ?? 'tag' }} me-2"></i>
+                            <i class="fas fa-tag me-2"></i>
                             {{ $categories->firstWhere('id', request('category'))->name }} Selection
                         </span>
                     @else
@@ -146,18 +145,6 @@
                         </span>
                     @endif
                 </h2>
-
-                <p class="lead mb-0">
-                    @if (request('category'))
-                        <span class="category-description">
-                            {{ $categories->firstWhere('id', request('category'))->description ?? 'Handcrafted with care' }}
-                        </span>
-                    @else
-                        <span class="main-description">
-                            Discover our wide range of warm and cold beverages
-                        </span>
-                    @endif
-                </p>
             </div>
 
             <!-- Products Grid -->
@@ -217,7 +204,6 @@
                                 <span id="modalProductPrice" class="fs-4 fw-bold me-3"></span>
                                 <span id="modalProductCategory" class="badge"></span>
                             </div>
-                            <p id="modalProductDescription" class="mb-4"></p>
 
                             <form id="modalAddToCartForm" class="mt-auto">
                                 @csrf
@@ -236,7 +222,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="d-flex pagination justify-content-center">
         {{ $products->appends(request()->query())->links() }}
@@ -271,9 +256,8 @@
                 document.getElementById('modalProductName').textContent = 'Loading...';
                 document.getElementById('modalProductPrice').textContent = '';
                 document.getElementById('modalProductCategory').textContent = '';
-                document.getElementById('modalProductDescription').textContent = 'Loading product details...';
-                document.getElementById('modalProductImage').innerHTML =
-                    '<div class="spinner-border text-warning"></div>';
+                document.getElementById('modalProductImage').src = ''; // Clear previous image
+                document.getElementById('modalProductImage').alt = 'Loading...';
 
                 // Show modal
                 productModal.show();
@@ -297,22 +281,23 @@
                         document.getElementById('modalProductPrice').textContent =
                             `$${parseFloat(data.price).toFixed(2)}`;
                         document.getElementById('modalProductCategory').textContent = data.category.name;
-                        document.getElementById('modalProductDescription').textContent =
-                            data.description || 'No description available';
                         document.getElementById('modalProductId').value = data.id;
 
-                        // Handle image - use placeholder if not found
-                        const imageUrl = data.image_exists ?
-                            `/assets/images/${data.image}` :
-                            '/assets/images/placeholder.jpg';
-                        document.getElementById('modalProductImage').src = imageUrl;
+                        // Handle image - use the same path format as in the cards
+                        const imageUrl = data.image ? `/${data.image}` : '/assets/images/placeholder.jpg';
+                        const modalImage = document.getElementById('modalProductImage');
+                        modalImage.src = imageUrl;
+                        modalImage.alt = data.name;
+
+                        // Apply the same styling as the card images if needed
+                        modalImage.style.objectFit = 'cover';
+                        modalImage.style.width = '100%';
+                        modalImage.style.height = '100%';
 
                         isModalLoading = false;
                     })
                     .catch(error => {
                         console.error('Error loading product details:', error);
-                        document.getElementById('modalProductDescription').textContent =
-                            `Error loading product: ${error.message}`;
                         document.getElementById('modalProductImage').src = '/assets/images/placeholder.jpg';
                         isModalLoading = false;
                     });
@@ -414,8 +399,6 @@
                             setTimeout(() => {
                                 button.innerHTML = originalText;
                                 button.disabled = false;
-                                // Close modal after successful add if desired
-                                // productModal.hide();
                             }, 2000);
                         } else {
                             throw new Error(data.message || 'Failed to add to cart');
@@ -499,27 +482,27 @@
                 });
             }
 
-function updateCartCount(count) {
-    const cartCountElements = document.querySelectorAll('.cart-count');
-    cartCountElements.forEach(el => {
-        el.textContent = count;
+            function updateCartCount(count) {
+                const cartCountElements = document.querySelectorAll('.cart-count');
+                cartCountElements.forEach(el => {
+                    el.textContent = count;
 
-        // Always show the badge, but change color if empty
-        if (count <= 0) {
-            el.classList.remove('bg-danger');
-            el.classList.add('bg-secondary');
-        } else {
-            el.classList.remove('bg-secondary');
-            el.classList.add('bg-danger');
-        }
+                    // Always show the badge, but change color if empty
+                    if (count <= 0) {
+                        el.classList.remove('bg-danger');
+                        el.classList.add('bg-secondary');
+                    } else {
+                        el.classList.remove('bg-secondary');
+                        el.classList.add('bg-danger');
+                    }
 
-        // Add animation
-        el.classList.add('animate__animated', 'animate__bounceIn');
-        setTimeout(() => {
-            el.classList.remove('animate__animated', 'animate__bounceIn');
-        }, 1000);
-    });
-}
+                    // Add animation
+                    el.classList.add('animate__animated', 'animate__bounceIn');
+                    setTimeout(() => {
+                        el.classList.remove('animate__animated', 'animate__bounceIn');
+                    }, 1000);
+                });
+            }
         });
     </script>
 @endsection
