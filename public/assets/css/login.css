@@ -5,13 +5,58 @@ body {
 }
 
 .login-wrapper {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 2rem;
 }
+.google-sign-in-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #757575;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 15px;
+}
 
+.google-sign-in-button:hover {
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.google-icon {
+    margin-right: 10px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider-text {
+    padding: 0 10px;
+    color: #6c757d;
+    font-size: 14px;
+}
 .login-card {
     background-color: #fff;
     border-radius: 1rem;
