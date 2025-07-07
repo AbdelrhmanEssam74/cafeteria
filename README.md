@@ -1,61 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🥗 Cafeteria Management System
 
-## About Laravel
+A full-featured cafeteria ordering and management system built with **Laravel** and **MySQL**. This project allows admins to manage products, users, and view orders, while regular users can browse products, place orders, and track their order history.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 👤 User Role
+- Register & login
+- Browse available products by category
+- Place orders with multiple items
+- View order history with status (pending, delivered, canceled)
 
-## Learning Laravel
+### 🧑‍💼 Admin Role
+- Dashboard with total sales and user count
+- Add, edit, delete products
+- Add, edit users with roles and room numbers
+- View all orders and print checks/invoices
+- Filter orders by status
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend:** Laravel 11+ (PHP)
+- **Frontend:** Blade, Bootstrap / Tailwind CSS
+- **Database:** MySQL
+- **Authentication:** Laravel Auth (Guard-based)
+- **ORM:** Eloquent
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🗂️ Database Schema
 
-### Premium Partners
+### Tables:
+- `users` – name, email, password, room, extension, role
+- `products` – name, price, image, category, availability
+- `categories` – product categories
+- `orders` – linked to user, status, total
+- `order_items` – linked to order & product, quantity, price
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🔧 Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/yourusername/cafeteria-system.git
+cd cafeteria-system
+composer install
+cp .env.example .env
+php artisan key:generate
 
-## Code of Conduct
+# Setup database
+php artisan migrate --seed
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Optional: link storage
+php artisan storage:link
 
-## Security Vulnerabilities
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📸 Screenshots
 
-## License
+Add UI screenshots below:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Home Page](https://github.com/user-attachments/assets/b7d2f01c-6829-42e9-9ed9-154e803a53f9)
+
+![Menu Page](https://github.com/user-attachments/assets/0eda7adc-058d-4f80-b486-489327733f82)
+
+![Admin Page](https://github.com/user-attachments/assets/b7bf3f00-60fc-4137-b71d-191435620224)
+
+---
+
+## 🎥 Demo
+
+You can watch a short demo here:  
+👉 [Watch on YouTube](https://www.youtube.com/your-demo-link)
+
+---
+
+## ✍️ Teams
+**Abdelrhman Essam** – [@abdelrhmanessam74](https://www.linkedin.com/in/yourusername)
+
+**Mohamed Ahmed** – [@yourusername](https://www.linkedin.com/in/yourusername)
+
+**Ahmed Mohamed** – [@yourusername](https://www.linkedin.com/in/yourusername)
+
+**Mohamed Ali** – [@yourusername](https://www.linkedin.com/in/yourusername)
+
+---
+
+## 🌟 License
+
+This project is open source under the [MIT License](LICENSE).
+
