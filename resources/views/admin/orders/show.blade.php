@@ -7,7 +7,7 @@
 @include('includes.admin.sidebar')
 @endsection
 @section('title', 'Order Details')
-{{-- {{dd($order->items)}} --}}
+
 @section('content')
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -43,9 +43,9 @@
 
                         <div class="mb-3">
                             <span class="text-muted">Room Number:</span>
-                            @foreach($order->items as $item)
-                                <p class="mb-0">{{ $item->room_number ?? 'Not specified' }}</p>
-                            @endforeach
+                                @foreach($order->items as $item)
+                                    <p class="mb-0">{{ $item->room_number ?? 'Not specified' }}</p>
+                                @endforeach
                         </div>
                     </div>
 
@@ -54,8 +54,8 @@
                             <span class="text-muted">Order Status:</span>
                             <p class="mb-0">
                             <span class="badge rounded-pill {{ $order->status == 'pending' ? 'bg-warning text-dark' :
-                                 ($order->status == 'processing' ? 'bg-primary' :
-                                 ($order->status == 'delivered' ? 'bg-success' : 'bg-danger')) }}">
+                                ($order->status == 'processing' ? 'bg-primary' :
+                                ($order->status == 'delivered' ? 'bg-success' : 'bg-danger')) }}">
                                 {{ ucfirst($order->status) }}
                             </span>
                             </p>

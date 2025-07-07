@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name'); // Full name
             $table->string('email')->unique(); // Unique email for login
             $table->string('password'); // Hashed password
-            $table->string('room_number')->nullable(); // Room number for delivery
             $table->string('ext')->nullable(); // Internal extension
             $table->enum('role', ['admin', 'user'])->default('user'); // User role
             $table->string('image')->nullable(); // Profile image path

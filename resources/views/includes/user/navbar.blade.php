@@ -73,15 +73,15 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt me-2"></i> {{ __('Logout') }}
-                                </a>
                                 @if(auth()->check() && auth()->user()->role === "admin")
                                 <a  class="dropdown-item" href="{{route('admin.dashboard')}}">
                                     <i class="fa-regular fa-file-user"></i>
                                     Dashboard
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt me-2"></i> {{ __('Logout') }}
                                 </a>
                                 @endif
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
