@@ -2,6 +2,10 @@
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/admin/create-product.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/nav.css') }}">
+@endsection
+@section('navbar')
+    @include('includes.admin.sidebar')
 @endsection
 
 @section('title', 'Add New Product')
@@ -26,12 +30,14 @@
 
                 <div class="mb-4">
                     <label class="form-label">Product Name</label>
-                    <input type="text" name="name" class="form-control" required value="{{ old('name') }}" placeholder="Enter product name">
+                    <input type="text" name="name" class="form-control" required value="{{ old('name') }}"
+                        placeholder="Enter product name">
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label">Price (EGP)</label>
-                    <input type="number" name="price" step="0.01" class="form-control" required value="{{ old('price') }}" placeholder="0.00">
+                    <input type="number" name="price" step="0.01" class="form-control" required
+                        value="{{ old('price') }}" placeholder="0.00">
                 </div>
 
                 <div class="mb-4">
@@ -39,8 +45,10 @@
                     <div class="input-group">
                         <select name="category_id" id="category_id" class="form-select" required>
                             <option value="">-- Choose Category --</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}
+                                </option>
                             @endforeach
                         </select>
                         <a href="{{ route('categories.create') }}" class="btn btn-add-category">

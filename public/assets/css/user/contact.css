@@ -1,0 +1,55 @@
+.icon-container {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(212, 167, 98, 0.1);
+    border-radius: 50%;
+}
+
+.form-control {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    border-color: #d4a762;
+    box-shadow: 0 0 0 0.25rem rgba(212, 167, 98, 0.25);
+}
+
+/* Add to your existing styles */
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+}
+
+.hero-img-wrap {
+    top: -100px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-footer {
+    border-top: none;
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.bg-success {
+    background-color: #3a2e1f !important;
+}
+
+.btn-success {
+    background-color: #d4a762 !important;
+    border-color: #d4a762 !important;
+}

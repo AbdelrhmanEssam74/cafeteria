@@ -1,0 +1,93 @@
+body {
+    background-color: #DCE5E4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-wrapper {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.register-card {
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    max-width: 900px;
+    display: flex;
+    width: 100%;
+}
+
+.register-image {
+    flex: 1;
+    background: url('/assets/images/register-image.jpg') center/cover no-repeat;
+    min-height: 400px;
+}
+
+.register-form {
+    flex: 1;
+    padding: 2rem;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3B5D50;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2F2F2F;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    padding: 0.65rem;
+    border: 1px solid #DCE5E4;
+}
+
+.form-control:focus {
+    border-color: #3B5D50;
+    box-shadow: 0 0 0 0.2rem rgba(59, 93, 80, 0.15);
+}
+
+.btn-primary {
+    background-color: #D4A762;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #c09554;
+}
+
+.invalid-feedback {
+    font-size: 0.875rem;
+    color: #DC3545;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    color: #842029;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .register-card {
+        flex-direction: column;
+    }
+
+    .register-image {
+        display: none;
+    }
+}

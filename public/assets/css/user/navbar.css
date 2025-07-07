@@ -1,0 +1,70 @@
+body {
+    padding-top: 56px;
+}
+
+.custom-navbar {
+    transition: all 0.3s ease;
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link-content {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-link.active {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #eba439;
+    /* color: #fff */
+    border-radius: 4px;
+    transform: scale(1.05);
+    z-index: 0;
+}
+
+.nav-link:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Animation for active state */
+@keyframes activePulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.nav-link.active::before {
+    animation: activePulse 2s infinite ease-in-out;
+}

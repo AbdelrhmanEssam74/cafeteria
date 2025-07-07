@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/admin/order-details.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/nav.css') }}">
+@endsection
+@section('navbar')
+@include('includes.admin.sidebar')
 @endsection
 @section('title', 'Order Details')
 

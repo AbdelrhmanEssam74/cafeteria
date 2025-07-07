@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('title', 'All Orders')
-
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/nav.css') }}">
+@endsection
+@section('navbar')
+    @include('includes.admin.sidebar')
+@endsection
 @section('content')
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">

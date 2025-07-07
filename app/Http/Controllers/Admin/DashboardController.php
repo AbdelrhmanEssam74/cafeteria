@@ -26,7 +26,7 @@ class DashboardController extends Controller
             return $item->price * $item->quantity;
         });
 
-        return view('admin.dashboard', compact(
+        return view('Admin.dashboard', compact(
             'totalOrders',
             'pendingOrders',
             'processingOrders',
