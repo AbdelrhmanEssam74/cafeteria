@@ -24,7 +24,7 @@ A full-featured cafeteria ordering and management system built with **Laravel** 
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Laravel 10 (PHP)
+- **Backend:** Laravel 11+ (PHP)
 - **Frontend:** Blade, Bootstrap / Tailwind CSS
 - **Database:** MySQL
 - **Authentication:** Laravel Auth (Guard-based)
