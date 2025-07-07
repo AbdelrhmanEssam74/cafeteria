@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -20,26 +20,27 @@ class AdminOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-        public function index(Request $request)
-        {
-            $query = Order::with('user');
+public function index(Request $request)
+{
+    $query = Order::with(['user', 'items.product']);
 
-            if ($request->start_date) {
-                $query->whereDate('created_at', '>=', $request->start_date);
-            }
 
-            if ($request->end_date) {
-                $query->whereDate('created_at', '<=', $request->end_date);
-            }
+    if ($request->start_date) {
+        $query->whereDate('created_at', '>=', $request->start_date);
+    }
 
-            if ($request->status) {
-                $query->where('status', $request->status);
-            }
+    if ($request->end_date) {
+        $query->whereDate('created_at', '<=', $request->end_date);
+    }
 
-            $orders = $query->latest()->paginate(9);
+    if ($request->status) {
+        $query->where('status', $request->status);
+    }
 
-            return view('admin.orders.index', compact('orders'));
-        }
+    $orders = $query->paginate(9);
+
+    return view('admin.orders.index', compact('orders'));
+}
 
     /**
      * Show the form for creating a new resource.

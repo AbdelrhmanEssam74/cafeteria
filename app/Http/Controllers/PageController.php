@@ -12,7 +12,7 @@ class PageController extends Controller
     {
         // Start with base query including category relationship
         $query = Product::with(['category' => function ($query) {
-            $query->select('id', 'name', 'slug'); // Only select needed columns
+            $query->select('id', 'name');
         }]);
 
         // Search by name
@@ -39,7 +39,7 @@ class PageController extends Controller
         $products = $query->paginate(9)->appends($request->query());
 
         // Get all categories for filter dropdown
-        $categories = Category::select('id', 'name', 'slug', 'description')->get();
+        $categories = Category::select('id', 'name')->get();
 
         return view('user.menu', [
             'products' => $products,
@@ -83,19 +83,17 @@ class PageController extends Controller
         }
 
         // Verify the image exists
-        $imagePath = public_path('assets/images/' . $product->image);
+        $imagePath = public_path($product->image);
         $imageExists = file_exists($imagePath);
 
         return response()->json([
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
-            'description' => $product->description,
-            'image' => $product->image,
+            'image' => $product->image, // This should match what you use in the cards
             'image_exists' => $imageExists,
             'category' => [
-                'name' => $product->category->name,
-                'slug' => $product->category->slug ?? 'slug'
+                'name' => $product->category->name
             ]
         ]);
     }

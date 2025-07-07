@@ -8,15 +8,37 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function index()
-    {
-        $orders = Order::with('orderItems.product')
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->get();
+public function index()
+{
+    $query = Order::with('items.product')
+        ->where('user_id', Auth::id());
 
-        return view('user.orders.index', compact('orders'));
+    // Add date filter if provided
+    if (request()->has('filter_date') && request('filter_date') != '') {
+        $filterDate = request('filter_date');
+        $query->whereDate('created_at', $filterDate);
     }
+
+    // Handle sorting
+    if (request()->has('sort')) {
+        switch (request('sort')) {
+            case 'date_asc':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'date_desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+        }
+    } else {
+        $query->orderBy('created_at', 'desc');
+    }
+
+    $orders = $query->paginate(6);
+
+    return view('user.orders.index', compact('orders'));
+}
 
     public function show(Order $order)
     {
@@ -49,22 +71,28 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         // Check if user owns the order or is admin
-        if (auth()->id() !== $order->user_id && !auth()->user()->isAdmin()) {
+        if (Auth::id() !== $order->user_id && !Auth::user()->isAdmin()) {
             abort(403);
         }
 
         $order->delete();
 
-        return redirect()->route('orders.index')
+        return redirect()->route('user.orders.index')
             ->with('success', 'Order deleted successfully');
     }
 
     public function deleteAll()
     {
         // Delete all orders for the current user
-        Order::where('user_id', auth()->id())->delete();
+        $orderCount = Order::where('user_id', Auth::id())->count();
 
-        return redirect()->route('orders.index')
-            ->with('success', 'All orders deleted successfully');
+        if ($orderCount > 0) {
+            Order::where('user_id', Auth::id())->delete();
+            return redirect()->route('user.orders.index')
+                ->with('success', 'All ' . $orderCount . ' orders deleted successfully');
+        }
+
+        return redirect()->route('user.orders.index')
+            ->with('info', 'No orders found to delete');
     }
 }

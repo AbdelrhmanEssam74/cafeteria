@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
 
-    public function storeOrder()
+    public function storeOrder(Request $request)
     {
         $cart = session()->get('cart', []);
         $user = Auth::user();
@@ -27,14 +27,16 @@ class CartController extends Controller
 
         $total = $this->calculateTotal($cart);
 
-        // إنشاء الطلب
+        // Create the order
         $order = Order::create([
             'user_id' => $user->id,
             'total_price' => $total,
             'status' => 'pending',
+            // 'payment_method' => 'cash', // or get from request if you have payment options
+            // 'shipping_address' => $user->address ?? 'N/A', // or get from request
         ]);
 
-        // حفظ عناصر الطلب
+        // Save order items
         foreach ($cart as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
@@ -44,10 +46,11 @@ class CartController extends Controller
             ]);
         }
 
-        // تفريغ السلة
+        // Clear the cart
         session()->forget('cart');
 
-        return redirect()->route('orders.index')->with('success', 'Your order has been placed successfully!');
+        // Redirect to orders page with success message
+        return redirect()->route('user.orders.index')->with('success', 'Your order has been placed successfully!');
     }
     // عرض محتويات السلة
     public function index()
@@ -128,7 +131,7 @@ class CartController extends Controller
                 'subtotal' => $newTotal,
                 'item_price' => $cart[$productId]['price'],
                 'item_total' => $itemTotal,
-                'cart_count' => array_sum(array_column($cart, 'quantity'))
+                'cart_count' => array_sum(array_column(session('cart'), 'quantity'))
             ]);
         }
 
