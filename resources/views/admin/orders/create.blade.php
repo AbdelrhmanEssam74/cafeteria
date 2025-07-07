@@ -39,11 +39,18 @@
                     <option value="">Choose Customer...</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }} (Room: {{ $user->room_number ?? 'N/A' }})
+                            {{ $user->name }}
                         </option>
                     @endforeach
                 </select>
-                <small class="text-muted">Search for customer by name or room number</small>
+                <small class="text-muted">Search for customer by name</small>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Room Number</label>                
+                <input type="number" name="room_number" value="{{ old('room_number') }}" class="form-control" required >
             </div>
 
             <hr class="my-4">
@@ -167,6 +174,7 @@
             // Quantity increment/decrement buttons
             document.querySelectorAll('.increment, .decrement').forEach(button => {
                 button.addEventListener('click', function() {
+                    console.log('clicked');
                     const targetId = this.dataset.target;
                     const input = document.getElementById(targetId);
                     let value = parseInt(input.value) || 0;

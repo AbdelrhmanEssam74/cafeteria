@@ -36,7 +36,6 @@ class AdminUserController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed|min:6',
-            'room_number' => 'required|string|max:10',
             'role' => 'required'
         ]);
 
@@ -44,7 +43,6 @@ class AdminUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'room_number' => $request->room_number,
             'role' => $request->role
         ]);
         return redirect()->route('users.index')->with('success', 'User added successfully.');
@@ -78,7 +76,6 @@ class AdminUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
-            'room_number' => 'required|string|max:10',
             'role' => 'required'
         ]);
 

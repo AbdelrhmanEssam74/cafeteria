@@ -98,31 +98,32 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $product = Product::findOrFail($id);
 
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $imagePath = null;
+        $data = [
+            'name' => $validated['name'],
+            'price' => $validated['price'],
+            'category_id' => $validated['category_id'],
+            'availability' => $request->has('availability'),
+        ];
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . $request->user()->id . '_' . $image->getClientOriginalName();
             $destinationPath = public_path('images/products');
             $image->move($destinationPath, $imageName);
-            $imagePath = 'images/products/' . $imageName;
+            $data['image'] = 'images/products/' . $imageName;
         }
 
-        $product->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
-            'image' => $imagePath,
-            'availability' => $request->has('availability'),
-        ]);
+        $product->update($data);
 
         return redirect()->route('products.index')->with('success', 'The product has been modified successfully.');
     }

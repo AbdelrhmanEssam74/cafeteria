@@ -38,11 +38,6 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Room Number</label>
-                <input type="text" name="room_number" value="{{ old('room_number') }}" class="form-control" required>
-            </div>
-
-            <div class="form-group">
                 <label class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" required>
             </div>

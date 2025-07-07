@@ -45,14 +45,6 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Room Number</label>
-                <input type="text" name="room_number" value="{{ old('room_number', $user->room_number) }}" class="form-control" required>
-                @error('room_number')
-                <span class="error-message">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
                 <label class="form-label">New Password (leave blank to keep current)</label>
                 <input type="password" name="password" class="form-control">
             </div>

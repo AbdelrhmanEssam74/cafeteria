@@ -3,7 +3,7 @@
         <!-- Brand -->
         <a href="{{ url('/') }}" class="d-flex align-items-center mb-4 text-decoration-none">
             <i class="fas fa-coffee me-2"></i>
-            <span class="fw-bold">{{ config('app.name', 'Café Admin') }}</span>
+            <span class="fw-bold">BrewHaven</span>
         </a>
 
         <!-- Navigation Links -->

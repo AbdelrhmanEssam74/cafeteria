@@ -23,7 +23,7 @@
 
         <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('PATCH')
 
             <div class="mb-3">
                 <label for="name" class="form-label">Product Name:</label>
@@ -58,8 +58,7 @@
                 @endif
 
                 {{-- hidden field to keep old image if no new one is uploaded --}}
-                <input type="hidden" name="old_image" value="{{ $product->image }}">
-                
+                {{-- <input type="hidden" name="old_image" value="{{ $product->image }}"> --}}
                 <input type="file" class="form-control" name="image" id="image" accept="image/*" >
             </div>
 

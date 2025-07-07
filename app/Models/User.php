@@ -25,7 +25,6 @@ class User extends Authenticatable
         'role',
         'username',
         'google_id'
-        'room_number',
     ];
 
     /**

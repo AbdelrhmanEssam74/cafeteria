@@ -20,27 +20,27 @@ class AdminOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-public function index(Request $request)
-{
-    $query = Order::with(['user', 'items.product']);
+    public function index(Request $request)
+    {
+        $query = Order::with(['user', 'items.product']);
 
 
-    if ($request->start_date) {
-        $query->whereDate('created_at', '>=', $request->start_date);
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $orders = $query->paginate(9);
+
+        return view('admin.orders.index', compact('orders'));
     }
-
-    if ($request->end_date) {
-        $query->whereDate('created_at', '<=', $request->end_date);
-    }
-
-    if ($request->status) {
-        $query->where('status', $request->status);
-    }
-
-    $orders = $query->paginate(9);
-
-    return view('admin.orders.index', compact('orders'));
-}
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +50,6 @@ public function index(Request $request)
         $users = User::where('role', 'user')->get();
         $products = Product::where('availability', true)->get();
         $categories = Category::all();
-
         return view('admin.orders.create', compact('users', 'products' , 'categories'));
     }
 
@@ -62,6 +61,7 @@ public function index(Request $request)
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'products' => 'required|array',
+            'room_number' => 'required|string|max:10',
         ]);
 
         $totalPrice = 0;
@@ -84,12 +84,14 @@ public function index(Request $request)
                 'user_id' => $request->user_id,
                 'status' => 'Processing',
                 'total_price' => $totalPrice,
+                'room_number' => $request->room_number,
             ]);
         }else{
             $order = Order::create([
                 'user_id' => $request->user_id,
                 'status' => 'pending',
                 'total_price' => $totalPrice,
+                'room_number' => $request->room_number,
             ]);
         }
 
@@ -108,9 +110,10 @@ public function index(Request $request)
                 'product_id' => $product->id,
                 'price' => $product->price,
                 'quantity' => $item['quantity'],
+                'room_number' => $request->room_number,
             ]);
         }
-
+        // dd($request);
         return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
 
