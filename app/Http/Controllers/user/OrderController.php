@@ -8,37 +8,37 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    public function index()
-    {
-        $query = Order::with('orderItems.product')
-            ->where('user_id', Auth::id());
+public function index()
+{
+    $query = Order::with('items.product')
+        ->where('user_id', Auth::id());
 
-        // Add date filter if provided
-        if (request()->has('filter_date') && request('filter_date') != '') {
-            $filterDate = request('filter_date');
-            $query->whereDate('created_at', $filterDate);
-        }
-
-        // Handle sorting
-        if (request()->has('sort')) {
-            switch (request('sort')) {
-                case 'date_asc':
-                    $query->orderBy('created_at', 'asc');
-                    break;
-                case 'date_desc':
-                    $query->orderBy('created_at', 'desc');
-                    break;
-                default:
-                    $query->orderBy('created_at', 'desc');
-            }
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
-
-        $orders = $query->get();
-
-        return view('user.orders.index', compact('orders'));
+    // Add date filter if provided
+    if (request()->has('filter_date') && request('filter_date') != '') {
+        $filterDate = request('filter_date');
+        $query->whereDate('created_at', $filterDate);
     }
+
+    // Handle sorting
+    if (request()->has('sort')) {
+        switch (request('sort')) {
+            case 'date_asc':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'date_desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+        }
+    } else {
+        $query->orderBy('created_at', 'desc');
+    }
+
+    $orders = $query->paginate(6);
+
+    return view('user.orders.index', compact('orders'));
+}
 
     public function show(Order $order)
     {

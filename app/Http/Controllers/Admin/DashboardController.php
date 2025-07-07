@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $deliveredOrders = Order::where('status', 'delivered')->count();
         $canceledOrders = Order::where('status', 'canceled')->count();
 
-        $sales = Order::where('status', 'delivered')->with('items')->get()->flatMap->items
+        $sales = Order::where('status', 'delivered')->get()->flatMap->items
         ->sum(function ($item) {
             return $item->price * $item->quantity;
         });
