@@ -53,9 +53,9 @@
     <main class="">
         @yield('content')
     </main>
-    {{-- Footer --}}
-    @yield('footer')
 @endif
+{{-- Footer --}}
+@yield('footer')
 
 <!-- JS Files -->
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
