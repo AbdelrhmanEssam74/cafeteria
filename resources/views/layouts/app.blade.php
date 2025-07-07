@@ -12,7 +12,7 @@
     <title>@yield('title', 'Furni')</title>
 
     <!-- CSS Files -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">ّ
     <link href="{{ asset('assets/css/tiny-slider.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
@@ -35,15 +35,13 @@
 
 </head>
 <body>
-    @if(auth()->check())
-        @if (auth()->user()->role === 'admin')
-            <div class="d-flex" style="min-height: 100vh;">
-                @yield('navbar')
-                <div class="flex-grow-1 p-4">
-                    @yield('content')
-                </div>
+    @if(auth()->check() && auth()->user()->role === 'admin')
+        <div class="d-flex" style="min-height: 100vh;">
+            @yield('navbar')
+            <div class="flex-grow-1 p-4">
+                @yield('content')
             </div>
-        @endif
+        </div>
     @else
         <!-- Navbar -->
         @yield('navbar')
@@ -96,6 +94,5 @@
             setTimeout(() => toast.remove(), 3000);
         }
     </script>
-
 </body>
 </html>
