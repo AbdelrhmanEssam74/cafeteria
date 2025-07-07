@@ -21,7 +21,8 @@ class Order extends Model
         'payment_method',
         'shipping_address',
         'billing_address',
-        'notes'
+        'notes',
+        'room_number'
     ];
     protected $casts = [
         'total_price' => 'decimal:2',
