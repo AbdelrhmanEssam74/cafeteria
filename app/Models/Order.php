@@ -34,7 +34,14 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    // In App\Models\Order.php
     public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    // Add this alias relationship
+    public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
     }

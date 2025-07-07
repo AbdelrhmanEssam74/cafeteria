@@ -197,65 +197,41 @@
                                 <i class="fas fa-chevron-left me-2"></i> Continue Shopping
                             </a>
 
-                            <!-- Button Group (equal width) -->
-                            <div class="d-flex gap-2">
-                                <!-- Clear Cart Button -->
-                                <button type="button" class="btn btn-outline-danger py-2 flex-grow-1"
-                                    data-bs-toggle="modal" data-bs-target="#clearCartModal">
-                                    <i class="fas fa-trash me-2"></i> Clear All Cart
-                                </button>
+                            <!-- Checkout Form -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3 d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-primary me-2"></i> Delivery Details
+                                    </h5>
 
-                                <!-- Proceed to Checkout Button -->
-                                <form action="{{ route('cart.storeOrder') }}" method="POST" class="flex-grow-1">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary py-2 w-100">
-                                        Place Order <i class="fas fa-chevron-right ms-2"></i>
-                                    </button>
-                                </form>
-
-                            </div>
-                        </div>
-
-                        <!-- Clear Cart Confirmation Modal -->
-                        <div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-danger text-white">
-                                        <h5 class="modal-title" id="clearCartModalLabel">
-                                            <i class="fas fa-exclamation-triangle me-2"></i> Confirm Clear Cart
-                                        </h5>
-                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="d-flex align-items-center mb-4">
-                                            <div class="flex-shrink-0 me-3">
-                                                <i class="fas fa-shopping-cart text-danger fa-3x"></i>
+                                    <form action="{{ route('cart.storeOrder') }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="room_number" class="form-label fw-medium">Room Number</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light">
+                                                    <i class="fas fa-door-open text-muted"></i>
+                                                </span>
+                                                <input type="text" class="form-control" id="room_number"
+                                                    name="room_number" placeholder="e.g., 305, 4B, etc." required
+                                                    style="border-left: 0">
                                             </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="mb-1">Clear your entire shopping cart?</h5>
-                                                <p class="mb-0">This will remove all {{ count($cartItems) }} items from
-                                                    your cart.</p>
-                                            </div>
+                                            <small class="text-muted">Where should we deliver your order?</small>
                                         </div>
-                                        <div class="alert alert-warning">
-                                            <i class="fas fa-info-circle me-2"></i> This action cannot be undone. All items
-                                            will be permanently removed.
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-secondary py-2 px-4"
-                                            data-bs-dismiss="modal">
-                                            <i class="fas fa-times me-1"></i> Cancel
-                                        </button>
-                                        <form action="{{ route('cart.clear') }}" method="POST" class="flex-grow-1">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger py-2 w-100">
-                                                <i class="fas fa-trash-alt me-1"></i> Yes, Clear Cart
+
+                                        <div class="d-flex gap-2 mt-4">
+                                            <!-- Clear Cart Button -->
+                                            <button type="button" class="btn btn-outline-danger py-2 flex-grow-1"
+                                                data-bs-toggle="modal" data-bs-target="#clearCartModal">
+                                                <i class="fas fa-trash me-2"></i> Clear Cart
                                             </button>
-                                        </form>
-                                    </div>
+
+                                            <!-- Place Order Button -->
+                                            <button type="submit" class="btn btn-primary py-2 flex-grow-1">
+                                                <i class="fas fa-check-circle me-2"></i> Place Order
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -275,6 +251,105 @@
             @endif
         </div>
     </div>
+
+
+
+
+
+
+    <!-- Clear Cart Confirmation Modal -->
+    <div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="clearCartModalLabel">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Confirm Clear Cart
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="flex-shrink-0 me-3">
+                            <i class="fas fa-shopping-cart text-danger fa-3x"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">Clear your entire shopping cart?</h5>
+                            <p class="mb-0">This will remove all {{ count($cartItems) }} items from
+                                your cart.</p>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle me-2"></i> This action cannot be undone. All items
+                        will be permanently removed.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary py-2 px-4" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Cancel
+                    </button>
+                    <form action="{{ route('cart.clear') }}" method="POST" class="flex-grow-1">
+                        @csrf
+                        <button type="submit" class="btn btn-danger py-2 w-100">
+                            <i class="fas fa-trash-alt me-1"></i> Yes, Clear Cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        /* Enhanced form styles */
+        .card .card-body {
+            padding: 1.5rem;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: 0;
+        }
+
+        .input-group input:focus {
+            box-shadow: none;
+            border-color: #dee2e6;
+        }
+
+        .input-group input:focus+.input-group-text {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* Button enhancements */
+        .btn-outline-danger {
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767.98px) {
+            .d-flex.gap-2 {
+                flex-direction: column;
+                gap: 0.75rem !important;
+            }
+
+            .flex-grow-1 {
+                width: 100%;
+            }
+        }
+    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
