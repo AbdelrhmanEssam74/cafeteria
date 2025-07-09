@@ -45,7 +45,7 @@
                             <span class="text-muted">Room Number:</span>
                                 @foreach($order->items as $item)
                                         <p class="mb-0">
-                                            {{ $order->items->first()->room_number ?? 'Not specified' }}
+                                            {{ $order->room_number ?? 'Not specified' }}
                                         </p>
                                 @endforeach
                         </div>
