@@ -27,13 +27,12 @@ class CartController extends Controller
 
         $total = $this->calculateTotal($cart);
 
-        // Create the order
+        // Create the order with room number from request
         $order = Order::create([
             'user_id' => $user->id,
             'total_price' => $total,
             'status' => 'pending',
-            // 'payment_method' => 'cash', // or get from request if you have payment options
-            // 'shipping_address' => $user->address ?? 'N/A', // or get from request
+            'room_number' => $request->input('room_number'), // Add this line
         ]);
 
         // Save order items
@@ -49,9 +48,9 @@ class CartController extends Controller
         // Clear the cart
         session()->forget('cart');
 
-        // Redirect to orders page with success message
         return redirect()->route('user.orders.index')->with('success', 'Your order has been placed successfully!');
     }
+
     // عرض محتويات السلة
     public function index()
     {

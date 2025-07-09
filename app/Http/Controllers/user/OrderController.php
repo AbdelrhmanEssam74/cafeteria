@@ -8,46 +8,45 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-public function index()
-{
-    $query = Order::with('items.product')
-        ->where('user_id', Auth::id());
+    public function index()
+    {
+        $query = Order::with('items.product')
+            ->where('user_id', Auth::id());
 
-    // Add date filter if provided
-    if (request()->has('filter_date') && request('filter_date') != '') {
-        $filterDate = request('filter_date');
-        $query->whereDate('created_at', $filterDate);
-    }
-
-    // Handle sorting
-    if (request()->has('sort')) {
-        switch (request('sort')) {
-            case 'date_asc':
-                $query->orderBy('created_at', 'asc');
-                break;
-            case 'date_desc':
-                $query->orderBy('created_at', 'desc');
-                break;
-            default:
-                $query->orderBy('created_at', 'desc');
+        // Add date filter if provided
+        if (request()->has('filter_date') && request('filter_date') != '') {
+            $filterDate = request('filter_date');
+            $query->whereDate('created_at', $filterDate);
         }
-    } else {
-        $query->orderBy('created_at', 'desc');
+
+        // Handle sorting
+        if (request()->has('sort')) {
+            switch (request('sort')) {
+                case 'date_asc':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'date_desc':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $orders = $query->paginate(6);
+
+        return view('user.orders.index', compact('orders'));
     }
-
-    $orders = $query->paginate(6);
-
-    return view('user.orders.index', compact('orders'));
-}
 
     public function show(Order $order)
     {
-        // Verify the order belongs to the authenticated user
         if ($order->user_id !== Auth::id()) {
             abort(403, 'Unauthorized');
         }
 
-        $order->load('orderItems.product');
+        $order->load('items.product');  // Change from 'orderItems.product' to 'items.product'
 
         return view('user.orders.show', compact('order'));
     }
